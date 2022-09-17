@@ -16,12 +16,19 @@ export default {
   data: () => ({
     presets: {
       "pride": Flag.horizontal([
-        "#ff0000",
-        "#ff7f00",
-        "#ffff00",
-        "#00ff00",
-        "#0000ff",
-        "#4b0082",
+        "#e40303",
+        "#ff8c00",
+        "#ffed00",
+        "#008026",
+        "#24408e",
+        "#732982",
+      ]),
+      "trans": Flag.horizontal([
+        "5bcefa",
+        "f5a9b8",
+        "ffffff",
+        "f5a9b8",
+        "5bcefa",
       ])
     }
   }),
