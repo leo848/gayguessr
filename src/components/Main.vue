@@ -1,12 +1,17 @@
 <template>
   <v-container>
     <h1>gayguessr</h1>
+    <v-col>
+      <Flag preset="pride" />
+    </v-col>
   </v-container>
 </template>
 
-<script>
+<script lang="ts">
+import Flag from "./Flag.vue";
 export default {
   name: 'HelloWorld',
+  components: { Flag },
   data: () => ({ }),
 }
 </script>

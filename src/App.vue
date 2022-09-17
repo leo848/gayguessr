@@ -7,7 +7,7 @@
   </v-app>
 </template>
 
-<script>
+<script lang="ts">
 import AppBar from './components/AppBar.vue'
 import Main from './components/Main.vue'
 
