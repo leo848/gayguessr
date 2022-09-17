@@ -18,6 +18,8 @@ export default {
     }
   },
   data: () => ({
+    flag: null as Flag | null,
+    ctx: null as CanvasRenderingContext2D | null,
     presets: {
       "pride": Flag.horizontal([
         "#e40303",
@@ -61,21 +63,43 @@ export default {
         "#ffffff",
         "#d162a4",
         "#b55690",
+      ]),
+      "agender": Flag.horizontal([
+        "#000000",
+        "#bcc4c7",
+        "#ffffff",
+        "#b7f684",
+        "#ffffff",
+        "#bcc4c7",
+        "#000000",
+      ]),
+      "ace": Flag.horizontal([
+        "#000000",
+        "#a3a3a3",
+        "#ffffff",
+        "#800080",
       ])
     }
   }),
+  watch: {
+    flag(_oldFlag: Flag|null, newFlag: Flag|null) {
+      if (newFlag == null) return;
+      newFlag.paint(this.ctx);
+    }
+  },
   mounted() {
     const canvas = document.getElementById("flag") as HTMLCanvasElement;
-    const ctx = canvas.getContext("2d");
+    this.ctx = canvas.getContext("2d");
 
     if (this.preset in this.presets) {
-      this.presets[this.preset].paint(ctx);
+      this.flag = this.presets[this.preset]
     }
 
     if (this.random) {
-      let randomFlag = this.presets[Object.keys(this.presets)[Math.floor(Math.random() * Object.keys(this.presets).length)]];
-      randomFlag.paint(ctx);
+      this.flag = this.presets[Object.keys(this.presets)[Math.floor(Math.random() * Object.keys(this.presets).length)]];
     }
+
+    this.flag.paint(this.ctx);
   }
 }
 </script>
