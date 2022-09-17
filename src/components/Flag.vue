@@ -44,6 +44,23 @@ export default {
         ["d60270", 2],
         ["9b4f96", 1],
         ["0038a8", 2],
+      ]),
+      "mlm": Flag.horizontal([
+        "#078d70",
+        "#26ceaa",
+        "#98e8c1",
+        "#ffffff",
+        "#7bade2",
+        "#5049cc",
+        "#3d1a78",
+      ]),
+      "lesbian": Flag.horizontal([
+        "#d52d00",
+        "#ef7627",
+        "#ff9a55",
+        "#ffffff",
+        "#d162a4",
+        "#b55690",
       ])
     }
   }),
