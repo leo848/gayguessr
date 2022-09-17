@@ -11,6 +11,10 @@ export default {
     preset: {
       type: String,
       required: false
+    },
+    random: {
+      type: Boolean,
+      default: false,
     }
   },
   data: () => ({
@@ -49,6 +53,11 @@ export default {
 
     if (this.preset in this.presets) {
       this.presets[this.preset].paint(ctx);
+    }
+
+    if (this.random) {
+      let randomFlag = this.presets[Object.keys(this.presets)[Math.floor(Math.random() * Object.keys(this.presets).length)]];
+      randomFlag.paint(ctx);
     }
   }
 }

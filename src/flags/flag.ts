@@ -7,7 +7,7 @@ type Stripe = {
 
 export abstract class Flag {
 	public static horizontal(rows: string[]): Flag {
-		return this.verticalWithRatio(rows.map(row => [row, 1]));
+		return this.horizontalWithRatio(rows.map(row => [row, 1]));
 	}
 
 	public static horizontalWithRatio(rows: [string, number][]): Flag {

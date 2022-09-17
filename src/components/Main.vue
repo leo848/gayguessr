@@ -2,7 +2,7 @@
   <v-container>
     <h1>gayguessr</h1>
     <v-col>
-      <Flag preset="bi" />
+      <Flag random />
     </v-col>
   </v-container>
 </template>
