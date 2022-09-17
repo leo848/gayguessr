@@ -29,6 +29,12 @@ export default {
         "ffffff",
         "f5a9b8",
         "5bcefa",
+      ]),
+      "enby": Flag.horizontal([
+        "fcf434",
+        "ffffff",
+        "9c59d1",
+        "2c2c2c",
       ])
     }
   }),
