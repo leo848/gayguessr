@@ -35,6 +35,11 @@ export default {
         "ffffff",
         "9c59d1",
         "2c2c2c",
+      ]),
+      "bi": Flag.horizontalWithRatio([
+        ["d60270", 2],
+        ["9b4f96", 1],
+        ["0038a8", 2],
       ])
     }
   }),
