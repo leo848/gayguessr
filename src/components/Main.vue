@@ -1,25 +1,18 @@
 <template>
   <v-container>
     <h1>gayguessr</h1>
-    <v-col align="center">
-      <Flag :width="700" random @click="changeKey" :key="key"/>
-    </v-col>
+    <Game />
   </v-container>
 </template>
 
 <script lang="ts">
-import Flag from "./Flag.vue";
+import Game from "./Game.vue";
+
 export default {
   name: 'HelloWorld',
-  components: { Flag },
-  methods: {
-    changeKey() {
-      this.key++;
-      return false;
-    }
-  },
+  components: { Game },
   data: () => ({
-    key: 0,
+    //
   }),
 }
 </script>
