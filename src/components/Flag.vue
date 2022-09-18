@@ -23,11 +23,11 @@ export default {
     },
     width: {
       type: Number,
-      default: 700,
+      default: (props: {height ?: number, ratio: number}) => (props.height ?? 500) * props.ratio,
     },
     height: {
       type: Number,
-      default: (props: {width: number, ratio: number}) => props.width / props.ratio
+      default: (props: {width ?: number, ratio: number}) => (props.width ?? 700) / props.ratio
     },
   },
   data: () => ({
