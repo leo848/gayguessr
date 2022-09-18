@@ -45,6 +45,8 @@ export let flagPresets: PresetMap = {
 		"#ffffff",
 		"#d162a4",
 		"#b55690",
+		"#a30262",
+		"#a30262",
 	]),
 	"agender": Flag.horizontal([
 		"#000000",
