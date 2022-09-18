@@ -78,6 +78,11 @@ export default {
         "#a3a3a3",
         "#ffffff",
         "#800080",
+      ]),
+      "pan": Flag.horizontal([
+        "#ff218c",
+        "#ffd800",
+        "#21b1ff",
       ])
     }
   }),
