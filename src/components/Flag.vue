@@ -1,5 +1,5 @@
 <template>
-  <canvas id="flag" class="rounded-xl" width="700" height="500"></canvas>
+  <canvas id="flag" class="rounded-xl" :width="width" :height="height"></canvas>
 </template>
 
 <script lang="ts">
@@ -17,13 +17,17 @@ export default {
       type: Boolean,
       default: false,
     },
-    height: {
+    ratio: {
       type: Number,
-      default: 500,
+      default: 7 / 5,
     },
     width: {
       type: Number,
       default: 700,
+    },
+    height: {
+      type: Number,
+      default: (props: {width: number, ratio: number}) => props.width / props.ratio
     },
   },
   data: () => ({

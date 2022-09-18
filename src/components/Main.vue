@@ -2,7 +2,7 @@
   <v-container>
     <h1>gayguessr</h1>
     <v-col align="center">
-      <Flag random @click="changeKey" :key="key"/>
+      <Flag :width="500" random @click="changeKey" :key="key"/>
     </v-col>
   </v-container>
 </template>
