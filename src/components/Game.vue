@@ -69,12 +69,12 @@ export default {
   },
   methods: {
     answer(option: string) {
-      this.flagIndex++;
       if (this.isCorrect(option)) {
         this.correctAnswers.push(1);
       } else {
         this.correctAnswers.push(0);
       }
+      this.flagIndex++;
     },
     isCorrect(answer: string) {
       return answer === this.flagPreset;
