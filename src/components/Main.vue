@@ -1,7 +1,6 @@
 <template>
   <v-container>
-    <h1>gayguessr</h1>
-    <Game />
+    <Game class="mt-2" />
   </v-container>
 </template>
 
