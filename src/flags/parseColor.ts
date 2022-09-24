@@ -201,3 +201,16 @@ export function parseColor(input: string): Color {
 export function colorToString(color: Color): string {
     return "rgb(" + color[0] + "," + color[1] + "," + color[2] + ")";
 }
+
+export function isBright(color: Color, threshold: number = 128): boolean {
+    return color[0] + color[1] + color[2] > threshold * 3;
+}
+
+export function complement(color: Color): Color {
+    return [255 - color[0], 255 - color[1], 255 - color[2]];
+}
+
+export function grayscale(color: Color): Color {
+    var gray = (color[0] + color[1] + color[2]) / 3;
+    return [gray, gray, gray];
+}

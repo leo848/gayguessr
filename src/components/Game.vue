@@ -18,17 +18,17 @@
     <v-col cols="1" sm="2" md="3" />
     <v-col cols="10" sm="8" md="6" align="center">
       <v-row>
-        <v-col cols="12" sm="6" align="end">
-          <v-btn block @click="rightAnswer" size="x-large">Option 1</v-btn>
-        </v-col>
-        <v-col cols="12" sm="6">
-          <v-btn block @click="wrongAnswer" size="x-large">Option 2</v-btn>
-        </v-col>
-        <v-col cols="12" sm="6" align="end">
-          <v-btn block @click="wrongAnswer" size="x-large">Option 3</v-btn>
-        </v-col>
-        <v-col cols="12" sm="6">
-          <v-btn block @click="wrongAnswer" size="x-large">Option 4</v-btn>
+        <v-col v-for="option, index in options" :key="option" cols="12" sm="6">
+          <v-btn
+            @click="answer(option)"
+            :color="buttonColor(index)"
+            :style="buttonStyle(index)"
+            :disabled="answered"
+            block
+            size="x-large"
+            >
+            {{ option }}
+          </v-btn>
         </v-col>
       </v-row>
     </v-col>
@@ -40,6 +40,7 @@
 import Flag from './Flag.vue';
 import MultipleProgressBar from './MultipleProgressBar.vue';
 import { flagPresets } from '../flags/flagPresets';
+import { parseColor, complement, isBright } from '../flags/parseColor';
 
 export default {
   name: 'Game',
@@ -49,23 +50,56 @@ export default {
     width: 500,
     allFlags: Object.keys(flagPresets).sort(() => Math.random() - 0.5),
     flagIndex: 0,
+    answered: false,
   }),
   computed: {
     flagPreset() {
       return this.allFlags[this.flagIndex];
     },
+    options() {
+      const options = [this.flagPreset];
+      while (options.length < 4) {
+        const randomFlag = this.allFlags[Math.floor(Math.random() * this.allFlags.length)];
+        if (!options.includes(randomFlag)) {
+          options.push(randomFlag);
+        }
+      }
+      return options.sort(() => Math.random() - 0.5);
+    },
   },
   methods: {
-    rightAnswer() {
-      this.answer();
-      this.correctAnswers.push(1);
-    },
-    wrongAnswer() {
-      this.answer();
-      this.correctAnswers.push(0);
-    },
-    answer() {
+    answer(option: string) {
       this.flagIndex++;
+      if (this.isCorrect(option)) {
+        this.correctAnswers.push(1);
+      } else {
+        this.correctAnswers.push(0);
+      }
+    },
+    isCorrect(answer: string) {
+      return answer === this.flagPreset;
+    },
+    buttonColor(index: number): string {
+      if (this.answered) {
+        if (this.isCorrect(this.options[index])) {
+          return 'success';
+        } else {
+          return 'error';
+        }
+      } else {
+        const flag = flagPresets[this.flagPreset];
+        return flag.colors()[index % flag.colors().length];
+      }
+    },
+    buttonStyle(index: number): string {
+      const colorString = this.buttonColor(index);
+      try {
+        const color = parseColor(colorString);
+
+        return `color: ${isBright(color, 160) ? "black" : "white"} !important`;
+      } catch (e) {
+        return "";
+      }
     }
   },
 }
