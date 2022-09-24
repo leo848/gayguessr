@@ -19,7 +19,7 @@ export default {
         if (props.preset) {
           return flagPresets[props.preset];
         } else {
-          return flagPresets["pride"];
+          return Flag.defaultFlag();
         }
       },
       validator: (value: object) => {
