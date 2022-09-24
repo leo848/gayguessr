@@ -28,6 +28,8 @@ export abstract class Flag {
 	}
 
 	public abstract paint(ctx: CanvasRenderingContext2D): void;
+
+	public abstract colors(): string[];
 }
 
 class DefaultFlag extends Flag {
@@ -39,6 +41,10 @@ class DefaultFlag extends Flag {
 		ctx.textAlign = "center";
 		ctx.font = "40px Roboto";
 		ctx.fillText("No flag given", width / 2, height / 2);
+	}
+
+	public colors(): string[] {
+		return ["black", "white"];
 	}
 }
 
@@ -61,6 +67,10 @@ class HorizontalFlag extends Flag {
 
 		}
 	}
+
+	public colors(): string[] {
+		return this.rows.map(s => s.color).map(colorToString);
+	}
 }
 
 class VerticalFlag extends Flag {
@@ -70,7 +80,11 @@ class VerticalFlag extends Flag {
 		this.columns = colors;
 	}
 
-	public paint(ctx: CanvasRenderingContext2D): void {
+	public paint(_ctx: CanvasRenderingContext2D): void {
 		throw new Error("Method not implemented.");
+	}
+
+	public colors(): string[] {
+		return this.columns.map(s => s.color).map(colorToString);
 	}
 }
