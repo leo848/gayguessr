@@ -6,6 +6,9 @@ type Stripe = {
 }
 
 export abstract class Flag {
+	public static defaultFlag(): Flag {
+		return new DefaultFlag();
+	}
 	public static horizontal(rows: string[]): Flag {
 		return this.horizontalWithRatio(rows.map(row => [row, 1]));
 	}
@@ -27,6 +30,18 @@ export abstract class Flag {
 	public abstract paint(ctx: CanvasRenderingContext2D): void;
 }
 
+class DefaultFlag extends Flag {
+	innerFlag: Flag = Flag.horizontal(["black"]);
+	public paint(ctx: CanvasRenderingContext2D): void {
+		let { width, height } = ctx.canvas;
+		this.innerFlag.paint(ctx);
+		ctx.fillStyle = "white";
+		ctx.textAlign = "center";
+		ctx.font = "40px Roboto";
+		ctx.fillText("No flag given", width / 2, height / 2);
+	}
+}
+
 class HorizontalFlag extends Flag {
 	rows: Stripe[];
 	constructor(colors: Stripe[]) {
@@ -35,8 +50,7 @@ class HorizontalFlag extends Flag {
 	}
 
 	public paint(ctx: CanvasRenderingContext2D): void {
-		let height = ctx.canvas.height;
-		let width = ctx.canvas.width;
+		let { width, height } = ctx.canvas;
 		let rowHeight = height / this.rows.map(s => s.size ?? 1).reduce((a, b) => a + b);
 		for (let i = 0, height = 0; i < this.rows.length; i++) {
 			let { color, size } = this.rows[i];
