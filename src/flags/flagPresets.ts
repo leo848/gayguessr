@@ -66,5 +66,10 @@ export let flagPresets: PresetMap = {
 		"#ff218c",
 		"#ffd800",
 		"#21b1ff",
+	]),
+	"androgyne": Flag.vertical([
+		"#fe007f",
+		"#9832ff",
+		"#00b8e7",
 	])
 }

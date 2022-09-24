@@ -80,8 +80,16 @@ class VerticalFlag extends Flag {
 		this.columns = colors;
 	}
 
-	public paint(_ctx: CanvasRenderingContext2D): void {
-		throw new Error("Method not implemented.");
+	public paint(ctx: CanvasRenderingContext2D): void {
+		let { width, height } = ctx.canvas;
+		let columnWidth = width / this.columns.map(s => s.size ?? 1).reduce((a, b) => a + b);
+		for (let i = 0, width = 0; i < this.columns.length; i++) {
+			let { color, size } = this.columns[i];
+			let delta = (size ?? 1) * columnWidth;
+			ctx.fillStyle = colorToString(color);
+			ctx.fillRect(width, 0, delta, height);
+			width += delta;
+		}
 	}
 
 	public colors(): string[] {
