@@ -194,7 +194,6 @@ export function parseColor(input: string): Color {
     var wc = webColors[input.toLowerCase()];
     if (wc != null)
         return parseColor(wc);
-    console.log(input);
     throw Error("'" + input + "' is not a valid color...");
 }
 

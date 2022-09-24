@@ -23,11 +23,13 @@
             @click="answer(option)"
             :color="buttonColor(index)"
             :style="buttonStyle(index)"
-            :disabled="answered"
             block
             size="x-large"
             >
             {{ option }}
+            <v-icon v-if="answered && selectedOption == option" right>
+              {{ isCorrect(option) ? 'mdi-check' : 'mdi-close' }}
+            </v-icon>
           </v-btn>
         </v-col>
       </v-row>
@@ -40,13 +42,14 @@
 import Flag from './Flag.vue';
 import MultipleProgressBar from './MultipleProgressBar.vue';
 import { flagPresets } from '../flags/flagPresets';
-import { parseColor, complement, isBright } from '../flags/parseColor';
+import { parseColor, isBright } from '../flags/parseColor';
 
 export default {
   name: 'Game',
   components: { Flag, MultipleProgressBar },
   data: () => ({
     correctAnswers: [],
+    selectedOption: null as string | null,
     width: 500,
     allFlags: Object.keys(flagPresets).sort(() => Math.random() - 0.5),
     flagIndex: 0,
@@ -69,12 +72,18 @@ export default {
   },
   methods: {
     answer(option: string) {
+      if (this.answered) {
+        this.answered = false;
+        this.flagIndex++;
+        return;
+      }
       if (this.isCorrect(option)) {
         this.correctAnswers.push(1);
       } else {
         this.correctAnswers.push(0);
       }
-      this.flagIndex++;
+      this.selectedOption = option;
+      this.answered = true;
     },
     isCorrect(answer: string) {
       return answer === this.flagPreset;
@@ -82,9 +91,9 @@ export default {
     buttonColor(index: number): string {
       if (this.answered) {
         if (this.isCorrect(this.options[index])) {
-          return 'success';
+          return 'green';
         } else {
-          return 'error';
+          return 'red';
         }
       } else {
         const flag = flagPresets[this.flagPreset];
