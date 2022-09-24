@@ -1,5 +1,5 @@
 <template>
-  <canvas id="flag" class="rounded-xl" :width="width" :height="height"></canvas>
+  <canvas id="flag-canvas" class="rounded-xl" :width="width" :height="height"></canvas>
 </template>
 
 <script lang="ts">
@@ -12,6 +12,19 @@ export default {
     preset: {
       type: String,
       required: false
+    },
+    flag: {
+      type: Object,
+      default: (props: {preset ?: string}) => {
+        if (props.preset) {
+          return flagPresets[props.preset];
+        } else {
+          return flagPresets["pride"];
+        }
+      },
+      validator: (value: object) => {
+        return value instanceof Flag;
+      }
     },
     random: {
       type: Boolean,
@@ -31,8 +44,8 @@ export default {
     },
   },
   data: () => ({
-    flag: null as Flag | null,
     ctx: null as CanvasRenderingContext2D | null,
+    displayFlag: null as Flag | null,
     presets: flagPresets,
   }),
   watch: {
@@ -42,18 +55,16 @@ export default {
     }
   },
   mounted() {
-    const canvas = document.getElementById("flag") as HTMLCanvasElement;
+    const canvas = document.getElementById("flag-canvas") as HTMLCanvasElement;
     this.ctx = canvas.getContext("2d");
 
-    if (this.preset in this.presets) {
-      this.flag = this.presets[this.preset]
-    }
+    this.displayFlag = this.flag;
 
     if (this.random) {
-      this.flag = this.presets[Object.keys(this.presets)[Math.floor(Math.random() * Object.keys(this.presets).length)]];
+      this.displayFlag = this.presets[Object.keys(this.presets)[Math.floor(Math.random() * Object.keys(this.presets).length)]];
     }
 
-    this.flag.paint(this.ctx);
+    this.displayFlag.paint(this.ctx);
   }
 }
 </script>

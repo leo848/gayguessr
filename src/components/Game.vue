@@ -13,7 +13,7 @@
       </v-row>
     </v-col>
     <v-col cols="12" align="center">
-      <Flag :width="width" random />
+      <Flag :width="width" :preset="flagPreset" :key="flagIndex"/>
     </v-col>
     <v-col cols="1" sm="2" md="3" />
     <v-col cols="10" sm="8" md="6" align="center">
@@ -39,6 +39,7 @@
 <script lang="ts">
 import Flag from './Flag.vue';
 import MultipleProgressBar from './MultipleProgressBar.vue';
+import { flagPresets } from '../flags/flagPresets';
 
 export default {
   name: 'Game',
@@ -46,14 +47,26 @@ export default {
   data: () => ({
     correctAnswers: [],
     width: 500,
+    allFlags: Object.keys(flagPresets).sort(() => Math.random() - 0.5),
+    flagIndex: 0,
   }),
+  computed: {
+    flagPreset() {
+      return this.allFlags[this.flagIndex];
+    },
+  },
   methods: {
     rightAnswer() {
+      this.answer();
       this.correctAnswers.push(1);
     },
     wrongAnswer() {
+      this.answer();
       this.correctAnswers.push(0);
     },
+    answer() {
+      this.flagIndex++;
+    }
   },
 }
 </script>
