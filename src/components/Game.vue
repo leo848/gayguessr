@@ -15,18 +15,24 @@
     <v-col cols="12" align="center">
       <Flag :width="width" random />
     </v-col>
-    <v-col cols="12" sm="6" align="end">
-      <v-btn @click="rightAnswer" size="x-large">Option 1</v-btn>
+    <v-col cols="1" sm="2" md="3" />
+    <v-col cols="10" sm="8" md="6" align="center">
+      <v-row>
+        <v-col cols="12" sm="6" align="end">
+          <v-btn block @click="rightAnswer" size="x-large">Option 1</v-btn>
+        </v-col>
+        <v-col cols="12" sm="6">
+          <v-btn block @click="wrongAnswer" size="x-large">Option 2</v-btn>
+        </v-col>
+        <v-col cols="12" sm="6" align="end">
+          <v-btn block @click="wrongAnswer" size="x-large">Option 3</v-btn>
+        </v-col>
+        <v-col cols="12" sm="6">
+          <v-btn block @click="wrongAnswer" size="x-large">Option 4</v-btn>
+        </v-col>
+      </v-row>
     </v-col>
-    <v-col cols="12" sm="6">
-      <v-btn @click="wrongAnswer" size="x-large">Option 2</v-btn>
-    </v-col>
-    <v-col cols="12" sm="6" align="end">
-      <v-btn @click="wrongAnswer" size="x-large">Option 3</v-btn>
-    </v-col>
-    <v-col cols="12" sm="6">
-      <v-btn @click="wrongAnswer" size="x-large">Option 4</v-btn>
-    </v-col>
+    <v-col cols="1" sm="2" md="3" />
   </v-row>
 </template>
 
