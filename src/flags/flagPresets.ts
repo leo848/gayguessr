@@ -72,11 +72,6 @@ export let flagPresets: PresetMap = {
 		"#9832ff",
 		"#00b8e7",
 	]),
-	"demisexual": Flag.horizontalWithRatio([
-		["#ffffff", 5],
-		["#6e0070", 2],
-		["#d2d2d2", 5],
-	]).overlay(Flag.triangleOverlay("#000000", 143/400)),
 	"genderfluid": Flag.horizontal([
 		"#ff76a4",
 		"#ffffff",
@@ -84,6 +79,16 @@ export let flagPresets: PresetMap = {
 		"#000000",
 		"#2f3cbe",
 	]),
+	"demisexual": Flag.horizontalWithRatio([
+		["#ffffff", 5],
+		["#6e0070", 2],
+		["#d2d2d2", 5],
+	]).overlay(Flag.triangleOverlay("#000000", 143/400)),
+	"demiromantic": Flag.horizontalWithRatio([
+		["#ffffff", 5],
+		["#339933", 2],
+		["#d2d2d2", 5],
+	]).overlay(Flag.triangleOverlay("#000000", 143/400)),
 	"demigirl": Flag.horizontal([
 		"#7f7f7f",
 		"#c4c4c4",
@@ -110,6 +115,26 @@ export let flagPresets: PresetMap = {
 		"#f5ff77",
 		"#c3c3c3",
 		"#7f7f7f",
+	]),
+	"demifaun": Flag.horizontalWithRatio([
+		["#7f7f7f", 2],
+		["#c6c6c6", 2],
+		["#fcc688", 1],
+		["#fff19c", 1],
+		["#ffffff", 1],
+		["#8de0d5", 1],
+		["#9682ec", 1],
+		["#c6c6c6", 2],
+		["#7f7f7f", 2],
+	]),
+	"demiandrogyne": Flag.horizontal([
+		"#7e7e7e",
+		"#c5c5c5",
+		"#f92e8e",
+		"#57218b",
+		"#09c3ed",
+		"#c5c5c5",
+		"#7e7e7e",
 	]),
 	"multigender": Flag.horizontal([
 		"#4f00cb",
