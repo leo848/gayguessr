@@ -1,7 +1,7 @@
 import { parseColor, colorToString, Color } from "./parseColor";
 
 type Stripe = {
-	color: Color;
+	flagOrColor: Color | Flag;
 	size?: number;
 }
 
@@ -14,7 +14,7 @@ export abstract class Flag {
 	}
 
 	public static horizontalWithRatio(rows: [string, number][]): Flag {
-		let stripes: Stripe[] = rows.map(([color, size]) => {return {color: parseColor(color), size}});
+		let stripes: Stripe[] = rows.map(([color, size]) => {return {flagOrColor: parseColor(color), size}});
 		return new HorizontalFlag(stripes);
 	}
 
@@ -23,7 +23,7 @@ export abstract class Flag {
 	}
 
 	public static verticalWithRatio(columns: [string, number][]): Flag {
-		let stripes: Stripe[] = columns.map(([color, size]) => {return {color: parseColor(color), size}});
+		let stripes: Stripe[] = columns.map(([color, size]) => {return {flagOrColor: parseColor(color), size}});
 		return new VerticalFlag(stripes);
 	}
 
@@ -83,16 +83,20 @@ class HorizontalFlag extends Flag {
 	): void {
 		let rowHeight = height / this.rows.map(s => s.size ?? 1).reduce((a, b) => a + b);
 		for (let i = 0, height = 0; i < this.rows.length; i++) {
-			let { color, size } = this.rows[i];
+			let { flagOrColor, size } = this.rows[i];
 			let delta = (size ?? 1) * rowHeight;
-			ctx.fillStyle = colorToString(color);
-			ctx.fillRect(x, y+height, width, delta);
+			if (flagOrColor instanceof Flag) {
+				flagOrColor.paint(ctx, x, y + height, width, delta);
+			} else {
+				ctx.fillStyle = colorToString(flagOrColor);
+				ctx.fillRect(x, y+height, width, delta);
+			}
 			height += delta;
 		}
 	}
 
 	public colors(): string[] {
-		return this.rows.map(s => s.color).map(colorToString);
+		return this.rows.map(s => s.flagOrColor).map(c => c instanceof Flag ? c.colors() : [colorToString(c)]).reduce((a, b) => a.concat(b));
 	}
 }
 
@@ -112,16 +116,20 @@ class VerticalFlag extends Flag {
 	): void {
 		let columnWidth = width / this.columns.map(s => s.size ?? 1).reduce((a, b) => a + b);
 		for (let i = 0, width = 0; i < this.columns.length; i++) {
-			let { color, size } = this.columns[i];
+			let { flagOrColor, size } = this.columns[i];
 			let delta = (size ?? 1) * columnWidth;
-			ctx.fillStyle = colorToString(color);
-			ctx.fillRect(x + width, y, delta, height);
+			if (flagOrColor instanceof Flag) {
+				flagOrColor.paint(ctx, x + width, y, delta, height);
+			} else {
+				ctx.fillStyle = colorToString(flagOrColor);
+				ctx.fillRect(x + width, y, delta, height);
+			}
 			width += delta;
 		}
 	}
 
 	public colors(): string[] {
-		return this.columns.map(s => s.color).map(colorToString);
+		return this.columns.map(s => s.flagOrColor).map(c => c instanceof Flag ? c.colors() : [colorToString(c)]).reduce((a, b) => a.concat(b));
 	}
 }
 
