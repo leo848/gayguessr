@@ -152,4 +152,36 @@ export let flagPresets: PresetMap = {
 		"#9ac7e8",
 		"#6d82d1",
 	]),
+	"genderflux": Flag.horizontal([
+		"#f57694",
+		"#f2a3b9",
+		"#cfcfcf",
+		"#7be1f5",
+		"#3ecdfa",
+		"#fff48c",
+	]),
+	"girlflux": Flag.horizontal([
+		Flag.verticalWithRatio([
+			["#69abe5", 1],
+			["#9c81b6", 1],
+			["#55bfab", 1],
+			["#ffffff", 1],
+			["#a9a9a9", 1],
+			["#ee92d3", 5],
+		]),
+		"#e068e4",
+		"#c340ce",
+	]),
+	"boyflux": Flag.horizontal([
+		Flag.verticalWithRatio([
+			["#e48ae4", 1],
+			["#9a81b4", 1],
+			["#55bfab", 1],
+			["#ffffff", 1],
+			["#a8a8a8", 1],
+			["#81d5ef", 5],
+		]),
+		"#69abe5",
+		"#5276d4",
+	]),
 }

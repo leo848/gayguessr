@@ -9,21 +9,31 @@ export abstract class Flag {
 	public static defaultFlag(): Flag {
 		return new DefaultFlag();
 	}
-	public static horizontal(rows: string[]): Flag {
+	public static horizontal(rows: (string | Flag)[]): Flag {
 		return this.horizontalWithRatio(rows.map(row => [row, 1]));
 	}
 
-	public static horizontalWithRatio(rows: [string, number][]): Flag {
-		let stripes: Stripe[] = rows.map(([color, size]) => {return {flagOrColor: parseColor(color), size}});
+	public static horizontalWithRatio(rows: [string | Flag, number][]): Flag {
+		let stripes: Stripe[] = rows.map(([row, size]) => {
+			return {
+				flagOrColor: row instanceof Flag ? row : parseColor(row),
+				size
+			}
+		});
 		return new HorizontalFlag(stripes);
 	}
 
-	public static vertical(columns: string[]): Flag {
+	public static vertical(columns: (string|Flag)[]): Flag {
 		return this.verticalWithRatio(columns.map(color => [color, 1]));
 	}
 
-	public static verticalWithRatio(columns: [string, number][]): Flag {
-		let stripes: Stripe[] = columns.map(([color, size]) => {return {flagOrColor: parseColor(color), size}});
+	public static verticalWithRatio(columns: [string|Flag, number][]): Flag {
+		let stripes: Stripe[] = columns.map(([column, size]) => {
+			return {
+				flagOrColor: column instanceof Flag ? column : parseColor(column),
+				size
+			}
+		});
 		return new VerticalFlag(stripes);
 	}
 
