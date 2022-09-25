@@ -1,8 +1,6 @@
 import { Flag } from "./flag";
 
-type PresetMap = { [key: string]: Flag };
-
-export let flagPresets: PresetMap = {
+export const flagPresets = {
 	"pride": Flag.horizontal([
 		"#e40303",
 		"#ff8c00",
