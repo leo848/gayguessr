@@ -6,7 +6,7 @@
         <MultipleProgressBar
           :values="correctAnswers"
           :max-width="width"
-          :length="20"
+          :length="flagAmount"
           :colors="{0:'#bb0000',1:'#008800'}"
           />
         <v-col cols="3" />
@@ -53,6 +53,7 @@ export default {
     width: 500,
     allFlags: Object.keys(flagPresets).sort(() => Math.random() - 0.5),
     flagIndex: 0,
+    flagAmount: Object.keys(flagPresets).length,
     answered: false,
   }),
   computed: {
