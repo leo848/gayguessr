@@ -69,6 +69,28 @@ export default {
       }
       return options.sort(() => Math.random() - 0.5);
     },
+    buttonColor() {
+      let randoms = new Array(4).fill(0);
+      const flagColors = flagPresets[this.flagPreset].colors();
+      for (let i = 0; i < 4; i++) {
+        let newNumber = Math.floor(Math.random() * flagColors.length);
+        for (let mctr = 0; randoms.includes(newNumber) && mctr < 100; mctr++) {
+          newNumber = Math.floor(Math.random() * flagColors.length);
+        }
+        randoms[i] = newNumber;
+      }
+      return (index: number) => {
+        if (this.answered) {
+          if (this.isCorrect(this.options[index])) {
+            return 'green';
+          } else {
+            return 'red';
+          }
+        }
+
+        return flagColors[randoms[index]];
+      };
+    }
   },
   methods: {
     answer(option: string) {
@@ -87,18 +109,6 @@ export default {
     },
     isCorrect(answer: string) {
       return answer === this.flagPreset;
-    },
-    buttonColor(index: number): string {
-      if (this.answered) {
-        if (this.isCorrect(this.options[index])) {
-          return 'green';
-        } else {
-          return 'red';
-        }
-      } else {
-        const flag = flagPresets[this.flagPreset];
-        return flag.colors()[index % flag.colors().length];
-      }
     },
     buttonStyle(index: number): string {
       const colorString = this.buttonColor(index);
