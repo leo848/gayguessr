@@ -27,15 +27,26 @@ export abstract class Flag {
 		return new VerticalFlag(stripes);
 	}
 
-	public abstract paint(ctx: CanvasRenderingContext2D): void;
+	public abstract paint(
+		ctx: CanvasRenderingContext2D,
+		x?: number,
+		y?: number,
+		width?: number,
+		height?: number
+	): void;
 
 	public abstract colors(): string[];
 }
 
 class DefaultFlag extends Flag {
 	innerFlag: Flag = Flag.horizontal(["black"]);
-	public paint(ctx: CanvasRenderingContext2D): void {
-		let { width, height } = ctx.canvas;
+	public paint(
+		ctx: CanvasRenderingContext2D,
+		x: number = 0,
+		y: number = 0,
+		width: number = ctx.canvas.width - x,
+		height: number = ctx.canvas.height - y
+	): void {
 		this.innerFlag.paint(ctx);
 		ctx.fillStyle = "white";
 		ctx.textAlign = "center";
@@ -55,16 +66,20 @@ class HorizontalFlag extends Flag {
 		this.rows = colors;
 	}
 
-	public paint(ctx: CanvasRenderingContext2D): void {
-		let { width, height } = ctx.canvas;
+	public paint(
+		ctx: CanvasRenderingContext2D,
+		x: number = 0,
+		y: number = 0,
+		width: number = ctx.canvas.width - x,
+		height: number = ctx.canvas.height - y,
+	): void {
 		let rowHeight = height / this.rows.map(s => s.size ?? 1).reduce((a, b) => a + b);
 		for (let i = 0, height = 0; i < this.rows.length; i++) {
 			let { color, size } = this.rows[i];
 			let delta = (size ?? 1) * rowHeight;
 			ctx.fillStyle = colorToString(color);
-			ctx.fillRect(0, height, width, delta);
+			ctx.fillRect(x, y+height, width, delta);
 			height += delta;
-
 		}
 	}
 
@@ -80,14 +95,19 @@ class VerticalFlag extends Flag {
 		this.columns = colors;
 	}
 
-	public paint(ctx: CanvasRenderingContext2D): void {
-		let { width, height } = ctx.canvas;
+	public paint(
+		ctx: CanvasRenderingContext2D,
+		x: number = 0,
+		y: number = 0,
+		width: number = ctx.canvas.width - x,
+		height: number = ctx.canvas.height - y,
+	): void {
 		let columnWidth = width / this.columns.map(s => s.size ?? 1).reduce((a, b) => a + b);
 		for (let i = 0, width = 0; i < this.columns.length; i++) {
 			let { color, size } = this.columns[i];
 			let delta = (size ?? 1) * columnWidth;
 			ctx.fillStyle = colorToString(color);
-			ctx.fillRect(width, 0, delta, height);
+			ctx.fillRect(x + width, y, delta, height);
 			width += delta;
 		}
 	}
