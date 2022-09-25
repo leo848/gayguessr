@@ -1,4 +1,4 @@
-import {Flag, TriangleOverlayFlag} from "./flag";
+import { Flag } from "./flag";
 
 type PresetMap = { [key: string]: Flag };
 
