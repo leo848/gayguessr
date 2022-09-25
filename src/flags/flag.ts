@@ -37,8 +37,12 @@ export abstract class Flag {
 		return new VerticalFlag(stripes);
 	}
 
-	public static triangleOverlay(color: string, ratio: number) {
+	public static triangleOverlay(color: string, ratio: number): Flag {
 		return new TriangleOverlayFlag(parseColor(color), ratio);
+	}
+
+	public static empty(): Flag {
+		return new EmptyFlag();
 	}
 
 	public abstract paint(
@@ -174,7 +178,7 @@ class TriangleOverlayFlag extends Flag {
 	}
 }
 
-export class OverlayFlag extends Flag {
+class OverlayFlag extends Flag {
 	flags: Flag[];
 	constructor(...flags: Flag[]) {
 		super()
@@ -193,5 +197,14 @@ export class OverlayFlag extends Flag {
 
 	public colors(): string[] {
 		return this.flags.map(f => f.colors()).reduce((a, b) => a.concat(b));
+	}
+}
+
+// The empty flag does not paint.
+class EmptyFlag extends Flag {
+	public paint(): void { }
+
+	public colors(): string[] {
+		return [];
 	}
 }
