@@ -9,25 +9,25 @@ export const flagPresets = {
 		"#24408e",
 		"#732982",
 	]),
-	trans: Flag.horizontal([
+	transgender: Flag.horizontal([
 		"5bcefa",
 		"f5a9b8",
 		"ffffff",
 		"f5a9b8",
 		"5bcefa",
 	]),
-	enby: Flag.horizontal([
+	nonbinary: Flag.horizontal([
 		"fcf434",
 		"ffffff",
 		"9c59d1",
 		"2c2c2c",
 	]),
-	bi: Flag.horizontalWithRatio([
+	bisexual: Flag.horizontalWithRatio([
 		["d60270", 2],
 		["9b4f96", 1],
 		["0038a8", 2],
 	]),
-	mlm: Flag.horizontal([
+	gay: Flag.horizontal([
 		"#078d70",
 		"#26ceaa",
 		"#98e8c1",
@@ -54,13 +54,13 @@ export const flagPresets = {
 		"#bcc4c7",
 		"#000000",
 	]),
-	ace: Flag.horizontal([
+	asexual: Flag.horizontal([
 		"#000000",
 		"#a3a3a3",
 		"#ffffff",
 		"#800080",
 	]),
-	pan: Flag.horizontal([
+	pansexual: Flag.horizontal([
 		"#ff218c",
 		"#ffd800",
 		"#21b1ff",
