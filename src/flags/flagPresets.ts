@@ -143,4 +143,13 @@ export let flagPresets: PresetMap = {
 		"#009be9",
 		"#4f00cb",
 	]),
+	"bigender": Flag.horizontal([
+		"#c470a2",
+		"#eda5cd",
+		"#d6c7e8",
+		"#ffffff",
+		"#d6c7e8",
+		"#9ac7e8",
+		"#6d82d1",
+	]),
 }
