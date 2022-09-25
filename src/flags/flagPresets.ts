@@ -102,4 +102,20 @@ export let flagPresets: PresetMap = {
 		"#c4c4c4",
 		"#7f7f7f",
 	]),
+	"deminonbinary": Flag.horizontal([
+		"#7f7f7f",
+		"#c3c3c3",
+		"#f5ff77",
+		"#ffffff",
+		"#f5ff77",
+		"#c3c3c3",
+		"#7f7f7f",
+	]),
+	"multigender": Flag.horizontal([
+		"#4f00cb",
+		"#009be9",
+		"#ff7400",
+		"#009be9",
+		"#4f00cb",
+	]),
 }
