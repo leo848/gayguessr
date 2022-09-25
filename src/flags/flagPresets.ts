@@ -1,4 +1,4 @@
-import {Flag} from "./flag";
+import {Flag, TriangleOverlayFlag} from "./flag";
 
 type PresetMap = { [key: string]: Flag };
 
@@ -71,5 +71,10 @@ export let flagPresets: PresetMap = {
 		"#fe007f",
 		"#9832ff",
 		"#00b8e7",
-	])
+	]),
+	"demisexual": Flag.horizontalWithRatio([
+		["#ffffff", 5],
+		["#6e0070", 2],
+		["#d2d2d2", 5],
+	]).overlay(Flag.triangleOverlay("#000000", 143/400)),
 }

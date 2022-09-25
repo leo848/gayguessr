@@ -27,6 +27,10 @@ export abstract class Flag {
 		return new VerticalFlag(stripes);
 	}
 
+	public static triangleOverlay(color: string, ratio: number) {
+		return new TriangleOverlayFlag(parseColor(color), ratio);
+	}
+
 	public abstract paint(
 		ctx: CanvasRenderingContext2D,
 		x?: number,
@@ -36,6 +40,10 @@ export abstract class Flag {
 	): void;
 
 	public abstract colors(): string[];
+
+	public overlay(flag: Flag): Flag {
+		return new OverlayFlag(this, flag);
+	}
 }
 
 class DefaultFlag extends Flag {
@@ -114,5 +122,58 @@ class VerticalFlag extends Flag {
 
 	public colors(): string[] {
 		return this.columns.map(s => s.color).map(colorToString);
+	}
+}
+
+class TriangleOverlayFlag extends Flag {
+	color: Color;
+	ratio: number;
+
+	constructor(color: Color, ratio: number) {
+		super()
+		this.color = color;
+		this.ratio = ratio;
+	}
+
+	public paint(
+		ctx: CanvasRenderingContext2D,
+		x: number = 0,
+		y: number = 0,
+		width: number = ctx.canvas.width - x,
+		height: number = ctx.canvas.height - y,
+	): void {
+		let absoluteRatio = this.ratio * width;
+		ctx.fillStyle = colorToString(this.color);
+		ctx.beginPath();
+		ctx.moveTo(x, y);
+		ctx.lineTo(x + absoluteRatio, y + height / 2);
+		ctx.lineTo(x, y + height);
+		ctx.fill();
+	}
+
+	public colors(): string[] {
+		return [colorToString(this.color)];
+	}
+}
+
+export class OverlayFlag extends Flag {
+	flags: Flag[];
+	constructor(...flags: Flag[]) {
+		super()
+		this.flags = flags;
+	}
+
+	public paint(
+		ctx: CanvasRenderingContext2D,
+		x: number = 0,
+		y: number = 0,
+		width: number = ctx.canvas.width - x,
+		height: number = ctx.canvas.height - y,
+	): void {
+		this.flags.forEach(flag => flag.paint(ctx, x, y, width, height));
+	}
+
+	public colors(): string[] {
+		return this.flags.map(f => f.colors()).reduce((a, b) => a.concat(b));
 	}
 }
