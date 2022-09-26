@@ -49,6 +49,10 @@ export abstract class Flag {
 		return new OneColorFlag(parseColor(color));
 	}
 
+	public static gradient(colors: string[]): Flag {
+		return new GradientFlag(...colors.map(parseColor));
+	}
+
 	public abstract paint(
 		ctx: CanvasRenderingContext2D,
 		x?: number,
@@ -233,5 +237,32 @@ class OneColorFlag extends Flag {
 
 	public colors(): string[] {
 		return [colorToString(this.color)];
+	}
+}
+
+class GradientFlag extends Flag {
+	gradientElements: Color[];
+	constructor(...gradientElements: Color[]) {
+		super()
+		this.gradientElements = gradientElements;
+	}
+
+	public paint(
+		ctx: CanvasRenderingContext2D,
+		x: number = 0,
+		y: number = 0,
+		width: number = ctx.canvas.width - x,
+		height: number = ctx.canvas.height - y,
+	): void {
+		let gradient = ctx.createLinearGradient(x, y, x + width, y + height);
+		this.gradientElements.forEach(
+			(color, i) => gradient.addColorStop(i / (this.colors.length - 1), colorToString(color))
+		);
+		ctx.fillStyle = gradient;
+		ctx.fillRect(x, y, width, height);
+	}
+
+	public colors(): string[] {
+		return this.gradientElements.map(colorToString);
 	}
 }
