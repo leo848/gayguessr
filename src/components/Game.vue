@@ -18,7 +18,7 @@
     <v-col cols="1" sm="2" md="3" />
     <v-col cols="10" sm="8" md="6" align="center">
       <v-row>
-        <v-col v-for="(option, index) in options" :key="option" cols="12" sm="6">
+        <v-col v-for="option, index in options" :key="option" cols="12" sm="6">
           <v-btn
             @click="answer(option)"
             :color="buttonColor(index)"
@@ -41,7 +41,6 @@
 <script lang="ts">
 import Flag from './Flag.vue';
 import MultipleProgressBar from './MultipleProgressBar.vue';
-
 import { flagPresets } from '../flags/flagPresets';
 import { parseColor, isBright } from '../flags/color';
 
