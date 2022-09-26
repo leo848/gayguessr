@@ -200,7 +200,6 @@ class OverlayFlag extends Flag {
 	}
 }
 
-// The empty flag does not paint.
 class EmptyFlag extends Flag {
 	public paint(): void { }
 
