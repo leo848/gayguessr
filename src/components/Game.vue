@@ -42,7 +42,7 @@
 import Flag from './Flag.vue';
 import MultipleProgressBar from './MultipleProgressBar.vue';
 import { flagPresets } from '../flags/flagPresets';
-import { parseColor, isBright } from '../flags/parseColor';
+import { parseColor, isBright } from '../flags/color';
 
 export default {
   name: 'Game',

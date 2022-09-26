@@ -1,4 +1,4 @@
-import { parseColor, colorToString, Color } from "./parseColor";
+import { parseColor, colorToString, Color } from "./color";
 
 type Stripe = {
 	flagOrColor: Flag;
