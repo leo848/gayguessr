@@ -19,7 +19,7 @@
     <v-col cols="10" sm="8" md="6" align="center">
       <v-row>
         <v-col v-for="option, index in options" :key="option" cols="12" sm="6">
-          <IdentityHover :identity="option">
+          <IdentityHover :id="option">
             <v-btn
               @click="answer(option)"
               :color="buttonColor(index)"

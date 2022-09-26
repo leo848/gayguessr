@@ -5,25 +5,36 @@
         <slot />
       </div>
     </template>
-    <v-card>
-      <v-card-title>{{ identity }}</v-card-title>
+    <v-card max-width="400" v-if="identity">
+      <v-card-title>{{ id }}</v-card-title>
       <v-card-text>
-        Lorem ipsum dolor sit amet consectetur adipisicing elit. Reprehenderit, earum! Velit provident quos distinctio natus perferendis ratione, consequatur sequi aut neque.
+        {{ identity.description }}
       </v-card-text>
     </v-card>
   </v-menu>
 </template>
 
 <script lang="ts">
+import { Identity, loadIdentity } from '../metadata/identity';
+
 export default {
   name: 'IdentityHover',
   props: {
-    identity: {
+    id: {
       type: String,
       required: true
     }
   },
-  created() {
+  data: () => ({
+    identity: null as null | Identity
+  }),
+  async created() {
+    try {
+      this.identity = await loadIdentity(import.meta.env.BASE_URL, this.id);
+    } catch (e) {
+      console.error("No metadata for: " + this.id);
+      throw e;
+    }
   }
 }
 </script>
