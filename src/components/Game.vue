@@ -19,18 +19,20 @@
     <v-col cols="10" sm="8" md="6" align="center">
       <v-row>
         <v-col v-for="option, index in options" :key="option" cols="12" sm="6">
-          <v-btn
-            @click="answer(option)"
-            :color="buttonColor(index)"
-            :style="buttonStyle(index)"
-            block
-            size="x-large"
-            >
-            {{ option }}
-            <v-icon v-if="answered && selectedOption == option" right>
-              {{ isCorrect(option) ? 'mdi-check' : 'mdi-close' }}
-            </v-icon>
-          </v-btn>
+          <IdentityHover :identity="option">
+            <v-btn
+              @click="answer(option)"
+              :color="buttonColor(index)"
+              :style="buttonStyle(index)"
+              block
+              size="x-large"
+              >
+              {{ option }}
+              <v-icon v-if="answered && selectedOption == option" right>
+                {{ isCorrect(option) ? 'mdi-check' : 'mdi-close' }}
+              </v-icon>
+            </v-btn>
+          </IdentityHover>
         </v-col>
       </v-row>
     </v-col>
@@ -41,12 +43,14 @@
 <script lang="ts">
 import Flag from './Flag.vue';
 import MultipleProgressBar from './MultipleProgressBar.vue';
+import IdentityHover from './IdentityHover.vue';
+
 import { flagPresets } from '../flags/flagPresets';
 import { parseColor, isBright } from '../flags/color';
 
 export default {
   name: 'Game',
-  components: { Flag, MultipleProgressBar },
+  components: { Flag, MultipleProgressBar, IdentityHover },
   data: () => ({
     correctAnswers: [],
     selectedOption: null as string | null,

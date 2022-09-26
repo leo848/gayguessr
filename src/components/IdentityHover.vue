@@ -1,15 +1,14 @@
 <template>
-  <v-menu transition="slide-x-transition">
+  <v-menu offset-y open-on-hover>
     <template v-slot:activator="{ props }">
-      <v-btn v-bind="props">
-        Dropdown
-      </v-btn>
+      <div v-bind="props">
+        <slot />
+      </div>
     </template>
-
     <v-card>
       <v-card-title>{{ identity }}</v-card-title>
       <v-card-text>
-        Lorem ipsum dolor sit amet consectetur adipisicing elit. Reprehenderit, earum! Velit provident quos distinctio natus perferendis ratione, consequatur sequi aut neque, iste modi ad tenetur harum reiciendis quisquam officiis suscipit.
+        Lorem ipsum dolor sit amet consectetur adipisicing elit. Reprehenderit, earum! Velit provident quos distinctio natus perferendis ratione, consequatur sequi aut neque.
       </v-card-text>
     </v-card>
   </v-menu>
