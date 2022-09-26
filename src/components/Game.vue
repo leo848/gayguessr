@@ -41,14 +41,13 @@
 <script lang="ts">
 import Flag from './Flag.vue';
 import MultipleProgressBar from './MultipleProgressBar.vue';
-import IdentityHover from './IdentityHover.vue';
 
 import { flagPresets } from '../flags/flagPresets';
 import { parseColor, isBright } from '../flags/color';
 
 export default {
   name: 'Game',
-  components: { Flag, MultipleProgressBar, IdentityHover },
+  components: { Flag, MultipleProgressBar },
   data: () => ({
     correctAnswers: [],
     selectedOption: null as string | null,
