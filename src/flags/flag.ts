@@ -45,6 +45,10 @@ export abstract class Flag {
 		return new EmptyFlag();
 	}
 
+	public static oneColor(color: string): Flag {
+		return new OneColorFlag(parseColor(color));
+	}
+
 	public abstract paint(
 		ctx: CanvasRenderingContext2D,
 		x?: number,
@@ -205,5 +209,29 @@ class EmptyFlag extends Flag {
 
 	public colors(): string[] {
 		return [];
+	}
+}
+
+class OneColorFlag extends Flag {
+	color: Color;
+
+	constructor(color: Color) {
+		super()
+		this.color = color;
+	}
+
+	public paint(
+		ctx: CanvasRenderingContext2D,
+		x: number = 0,
+		y: number = 0,
+		width: number = ctx.canvas.width - x,
+		height: number = ctx.canvas.height - y,
+	): void {
+		ctx.fillStyle = colorToString(this.color);
+		ctx.fillRect(x, y, width, height);
+	}
+
+	public colors(): string[] {
+		return [colorToString(this.color)];
 	}
 }
