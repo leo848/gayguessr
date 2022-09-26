@@ -256,7 +256,8 @@ class GradientFlag extends Flag {
 	): void {
 		let gradient = ctx.createLinearGradient(x, y, x + width, y + height);
 		this.gradientElements.forEach(
-			(color, i) => gradient.addColorStop(i / (this.colors.length - 1), colorToString(color))
+			(color, i) =>
+				gradient.addColorStop(i / (this.gradientElements.length - 1), colorToString(color))
 		);
 		ctx.fillStyle = gradient;
 		ctx.fillRect(x, y, width, height);
