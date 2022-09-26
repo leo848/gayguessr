@@ -1,15 +1,7 @@
 <template>
   <v-menu offset-y>
     <template v-slot:activator="{ on, attrs }">
-      <v-btn
-        v-bind="attrs"
-        v-on="on"
-        color="primary"
-        dark
-        class="mr-2"
-      >
-        Hover Me
-      </v-btn>
+      <slot />
       <v-card>
         <v-card-title>{{ identity }}</v-card-title>
         <v-card-text>
