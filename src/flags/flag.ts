@@ -1,7 +1,7 @@
 import { parseColor, colorToString, Color } from "./parseColor";
 
 type Stripe = {
-	flagOrColor: Color | Flag;
+	flagOrColor: Flag;
 	size?: number;
 }
 
@@ -16,7 +16,7 @@ export abstract class Flag {
 	public static horizontalWithRatio(rows: [string | Flag, number][]): Flag {
 		let stripes: Stripe[] = rows.map(([row, size]) => {
 			return {
-				flagOrColor: row instanceof Flag ? row : parseColor(row),
+				flagOrColor: row instanceof Flag ? row : new OneColorFlag(parseColor(row)),
 				size
 			}
 		});
@@ -30,7 +30,7 @@ export abstract class Flag {
 	public static verticalWithRatio(columns: [string|Flag, number][]): Flag {
 		let stripes: Stripe[] = columns.map(([column, size]) => {
 			return {
-				flagOrColor: column instanceof Flag ? column : parseColor(column),
+				flagOrColor: column instanceof Flag ? column : new OneColorFlag(parseColor(column)),
 				size
 			}
 		});
