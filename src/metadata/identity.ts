@@ -15,16 +15,22 @@ export type Identity = YamlIdentity & {
 	  alternativeFlags: Flag[];
 };
 
+function isYamlIdentity(yamlIdentity: YamlIdentity | null): yamlIdentity is YamlIdentity {
+	if (yamlIdentity === null) return false;
+	if (typeof yamlIdentity.title !== 'string') return false;
+	if (typeof yamlIdentity.description !== 'string') return false;
+	if (!Array.isArray(yamlIdentity.categories)) return false;
+	return true;
+}
+
 export async function loadIdentity(base: string, key: string): Promise<Identity | null> {
 	try {
 		const fetchedRawYaml = await fetch(base + 'metadata/' + key + '.yml');
 		const text = await fetchedRawYaml.text();
-		console.log(`${key} Text: ${text}`);
 		const yamlIdentity = parse(text) as YamlIdentity | null;
-		console.log(`${key} Parsed yaml: ${yamlIdentity}`);
-		if (yamlIdentity == null) {
-			return null;
-		}
+		yamlIdentity.aliases = yamlIdentity.aliases || [];
+
+		if (!isYamlIdentity(yamlIdentity)) return null;
 		return {
 			...yamlIdentity,
 			flag: flagPresets[yamlIdentity.title],
