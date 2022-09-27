@@ -26,11 +26,9 @@
               :style="buttonStyle(index)"
               block
               size="x-large"
+              :append-icon="buttonIconAppend(option)"
               >
               {{ option }}
-              <v-icon v-if="answered && selectedOption == option" right>
-                {{ isCorrect(option) ? 'mdi-check' : 'mdi-close' }}
-              </v-icon>
             </v-btn>
           </IdentityHover>
         </v-col>
@@ -116,6 +114,11 @@ export default {
       } catch (e) {
         return "";
       }
+    },
+    buttonIconAppend(option: string) {
+      if (this.answered && this.selectedOption == option) {
+        return this.isCorrect(option) ? 'mdi-check' : 'mdi-close';
+      } else return null;
     }
   },
 }
