@@ -23,22 +23,22 @@
               @click="answer(option)"
               :color="buttonColor(index)"
               :style="buttonStyle(index)"
+              class="option-button"
               block
               size="x-large"
               >
-              <div class="d-flex justify-space-between align-center">
-                <div>
-                  <IdentityHover :id="option">
-                  <v-icon>mdi-information</v-icon>
-                  </IdentityHover>
-                </div>
+              <div>
+                <IdentityHover :id="option">
+                <v-icon>mdi-information</v-icon>
+                </IdentityHover>
+              </div>
 
-                <div class="flex-grow-1">
-                  {{ option }}
-                </div>
-                <div v-if="answered && selectedOption === option" class="mr-auto">
-                  <v-icon>{{ isCorrect(option) ? "mdi-check" : "mdi-check" }}</v-icon>
-                </div>
+              <div>
+                {{ option }}
+              </div>
+
+              <div v-if="answered && selectedOption === option" class="mr-auto">
+                <v-icon>{{ isCorrect(option) ? "mdi-check" : "mdi-check" }}</v-icon>
               </div>
             </v-btn>
         </v-col>
@@ -128,3 +128,9 @@ export default {
   },
 }
 </script>
+
+<style scoped>
+.option-button, .option-button>* {
+  justify-content: space-between !important;
+}
+</style>
