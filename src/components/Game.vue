@@ -19,18 +19,28 @@
     <v-col cols="10" sm="8" md="6" align="center">
       <v-row>
         <v-col v-for="option, index in options" :key="option" cols="12" sm="6">
-          <IdentityHover :id="option">
             <v-btn
               @click="answer(option)"
               :color="buttonColor(index)"
               :style="buttonStyle(index)"
               block
               size="x-large"
-              :append-icon="buttonIconAppend(option)"
               >
-              {{ option }}
+              <div class="d-flex justify-space-between align-center">
+                <div>
+                  <IdentityHover :id="option">
+                  <v-icon>mdi-information</v-icon>
+                  </IdentityHover>
+                </div>
+
+                <div class="flex-grow-1">
+                  {{ option }}
+                </div>
+                <div v-if="answered && selectedOption === option" class="mr-auto">
+                  <v-icon>{{ isCorrect(option) ? "mdi-check" : "mdi-check" }}</v-icon>
+                </div>
+              </div>
             </v-btn>
-          </IdentityHover>
         </v-col>
       </v-row>
     </v-col>
@@ -115,11 +125,6 @@ export default {
         return "";
       }
     },
-    buttonIconAppend(option: string) {
-      if (this.answered && this.selectedOption == option) {
-        return this.isCorrect(option) ? 'mdi-check' : 'mdi-close';
-      } else return null;
-    }
   },
 }
 </script>
