@@ -28,9 +28,9 @@
               size="x-large"
               >
               <div>
-                <IdentityHover :id="option">
+                <IdentityInfo :id="option">
                 <v-icon>mdi-information</v-icon>
-                </IdentityHover>
+                </IdentityInfo>
               </div>
 
               <div>
@@ -51,14 +51,14 @@
 <script lang="ts">
 import Flag from './Flag.vue';
 import MultipleProgressBar from './MultipleProgressBar.vue';
-import IdentityHover from './IdentityHover.vue';
+import IdentityInfo from './IdentityInfo.vue';
 
 import { flagPresets } from '../flags/flagPresets';
 import { parseColor, isBright } from '../flags/color';
 
 export default {
   name: 'Game',
-  components: { Flag, MultipleProgressBar, IdentityHover },
+  components: { Flag, MultipleProgressBar, IdentityInfo },
   data: () => ({
     correctAnswers: [],
     selectedOption: null as string | null,

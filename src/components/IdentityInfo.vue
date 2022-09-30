@@ -1,5 +1,5 @@
 <template>
-  <v-menu offset-y open-on-hover>
+  <v-menu offset-y>
     <template v-slot:activator="{ props }">
       <div v-bind="props">
         <slot />
@@ -18,7 +18,7 @@
 import { Identity, loadIdentity } from '../metadata/identity';
 
 export default {
-  name: 'IdentityHover',
+  name: 'IdentityInfo',
   props: {
     id: {
       type: String,
