@@ -32,7 +32,6 @@ export async function loadIdentities(): Promise<{ [key: string]: Identity }> {
 		const identity = await loadIdentity(key);
 		if (identity) identities[key] = identity;
 	}
-	console.log(identities);
 	return identities;
 }
 
