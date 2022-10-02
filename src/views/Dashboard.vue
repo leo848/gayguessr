@@ -31,7 +31,19 @@
         </v-card>
       </v-col>
     </v-row>
-    <h2 class="text-h4 mt-6">Flag of the day ({{ new Date().toLocaleDateString() }})</h2>
+    <h2 class="text-h4 mt-6">
+      Flag of the day ({{ new Date().toLocaleDateString() }})
+      <v-tooltip top max-width="300px">
+        <template v-slot:activator="{ props }">
+          <v-btn icon="mdi-information" variant="text" v-bind="props" />
+        </template>
+        <span>
+          The flag of the day is calculated based on the hash of the current day
+          and is dependent on the amount of flags. This means that as more flags
+          get added, the flag of the day might change more than once per day.
+        </span>
+      </v-tooltip>
+    </h2>
     <p class="mb-4">Click for more information.</p>
     <FlagOfTheDay />
   </v-container>
