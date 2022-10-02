@@ -76,6 +76,15 @@ export const flagPresets = {
 		"#ffd800",
 		"#21b1ff",
 	]),
+	pangender: Flag.horizontal([
+		"#fff798",
+		"#ffddcd",
+		"#ffebfb",
+		"#ffffff",
+		"#ffebfb",
+		"#ffebfb",
+		"#fff798"
+	]),
 	androgyne: Flag.vertical([
 		"#fe007f",
 		"#9832ff",
