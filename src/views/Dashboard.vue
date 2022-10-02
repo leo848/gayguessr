@@ -1,6 +1,6 @@
 <template>
   <v-container>
-    <h1>Dashboard</h1>
+    <h1 class="text-h3 mb-4">Dashboard</h1>
     <v-row>
       <v-col cols="2" sm="4">
         <v-card to="./game">
@@ -31,17 +31,23 @@
         </v-card>
       </v-col>
     </v-row>
+    <h2 class="text-h4 mt-6">Flag of the day ({{ new Date().toLocaleDateString() }})</h2>
+    <p class="mb-4">Click for more information.</p>
+    <FlagOfTheDay />
   </v-container>
 </template>
 
 <script lang="ts">
 import { loadGames } from '../storage/storage'
 
+import FlagOfTheDay from '../components/FlagOfTheDay.vue'
+
 export default {
   name: 'Dashboard',
   data: () => ({
     games: loadGames(),
   }),
+  components: { FlagOfTheDay },
   methods: {
     formatDate(date: Date) {
       return Intl.DateTimeFormat('en-US', { dateStyle: 'medium', timeStyle: 'short' }).format(date);
