@@ -18,4 +18,8 @@ export default {
 .flex-button {
   font-size: 1.125rem;
 }
+
+.flex-button:hover {
+  transform: scale(1.08);
+}
 </style>
