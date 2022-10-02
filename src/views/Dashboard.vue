@@ -1,15 +1,12 @@
 <template>
   <v-container>
-    <Game class="mt-2" />
+    <h1>Dashboard</h1>
   </v-container>
 </template>
 
 <script lang="ts">
-import Game from '../components/Game.vue'
-
 export default {
-  name: 'HelloWorld',
-  components: { Game },
+  name: 'Dashboard',
   data: () => ({
     //
   }),
