@@ -9,6 +9,17 @@ export const flagPresets = {
 		"#24408e",
 		"#732982",
 	]),
+	queer: Flag.horizontal([
+		"#000000",
+		"#8cdbec",
+		"#009be9",
+		"#a3f834",
+		"#ffffff",
+		"#ffd100",
+		"#ff4659",
+		"#ffa0c5",
+		"#000000",
+	]),
 	transgender: Flag.horizontal([
 		"5bcefa",
 		"f5a9b8",
@@ -208,5 +219,40 @@ export const flagPresets = {
 		]),
 		"#69abe5",
 		"#5276d4",
+	]),
+	abrosexual: Flag.horizontal([
+		"#57d797",
+		"#a8ebcd",
+		"#fcfeff",
+		"#f486b0",
+		"#eb0062",
+	]),
+	androsexual: Flag.horizontal([
+		"#01ccff",
+		"#603524",
+		"#b798dd",
+	]),
+	ceterosexual: Flag.horizontal([
+		"#fcf980",
+		"#169c47",
+		"#ffffff",
+		"#000000",
+	]),
+	gynesexual: Flag.horizontal([
+		"#f4a9b7",
+		"#903f2b",
+		"#5b953b",
+	]),
+	omnisexual: Flag.horizontal([
+		"#ff85ca",
+		"#ff00b8",
+		"#260044",
+		"#7700fe",
+		"#9097ff",
+	]),
+	polysexual: Flag.horizontal([
+		"#ff00b2",
+		"#00e973",
+		"#0081f6",
 	]),
 }
