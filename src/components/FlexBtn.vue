@@ -1,6 +1,6 @@
 <template>
   <v-sheet
-    class="flex-button d-flex justify-space-between rounded-lg v-btn v-btn--x-large py-4 px-2"
+    class="flex-button d-flex justify-space-between rounded-lg v-btn v-btn--x-large px-2"
     type="button"
     v-ripple
     >
@@ -17,6 +17,7 @@ export default {
 <style scoped>
 .flex-button {
   font-size: 1.125rem;
+  height: 52px;
 }
 
 .flex-button:hover {
