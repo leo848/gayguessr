@@ -1,7 +1,7 @@
 <template>
   <v-container>
     <GameComponent class="mt-2" @done="showAlert" />
-    <v-dialog v-model="gameDialog" persistent>
+    <v-dialog v-model="gameDialog" max-width="500px" persistent>
       <v-card v-if="game">
         <v-card-title>Well done!</v-card-title>
         <v-card-text>
