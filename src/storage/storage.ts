@@ -3,7 +3,13 @@ import type { Game, IntoGame } from './types';
 const GAMES_KEY = 'games';
 
 export function loadGames(): Game[] {
-	return JSON.parse(localStorage.getItem(GAMES_KEY) || '[]');
+	return JSON.parse(localStorage.getItem(GAMES_KEY) || '[]', (key, value) => {
+		if (key === 'timeStarted' || key === 'timeEnded') {
+			return new Date(value);
+		} else {
+			return value;
+		}
+	});
 }
 
 export function saveGame(game: IntoGame): void {
