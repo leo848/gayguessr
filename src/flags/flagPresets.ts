@@ -82,7 +82,7 @@ export const flagPresets = {
 		"#ffebfb",
 		"#ffffff",
 		"#ffebfb",
-		"#ffebfb",
+		"#ffddcd",
 		"#fff798"
 	]),
 	androgyne: Flag.vertical([
