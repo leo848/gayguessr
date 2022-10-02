@@ -1,6 +1,14 @@
 <template>
   <v-sheet
-    class="flex-button d-flex justify-space-between rounded-lg v-btn v-btn--x-large px-2"
+    class="
+    flex-button
+    d-flex
+    justify-space-between
+    rounded-lg
+    v-btn
+    v-btn--x-large
+    elevation-4
+    px-2"
     type="button"
     v-ripple
     >
