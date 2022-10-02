@@ -19,7 +19,7 @@
     <v-col cols="10" sm="8" md="6" align="center">
       <v-row>
         <v-col v-for="option, index in options" :key="option" cols="12" sm="6">
-            <v-btn
+            <FlexBtn
               @click="answer(option)"
               :color="buttonColor(index)"
               :style="buttonStyle(index)"
@@ -33,14 +33,18 @@
                 </IdentityInfo>
               </div>
 
+              <v-spacer />
+
               <div>
                 {{ option }}
               </div>
 
-              <div v-if="answered && selectedOption === option" class="mr-auto">
+              <v-spacer />
+
+              <div v-if="answered && selectedOption === option">
                 <v-icon>{{ isCorrect(option) ? "mdi-check" : "mdi-close" }}</v-icon>
               </div>
-            </v-btn>
+            </FlexBtn>
         </v-col>
       </v-row>
     </v-col>
@@ -52,13 +56,14 @@
 import Flag from './Flag.vue';
 import MultipleProgressBar from './MultipleProgressBar.vue';
 import IdentityInfo from './IdentityInfo.vue';
+import FlexBtn from './FlexBtn.vue';
 
 import { flagPresets } from '../flags/flagPresets';
 import { parseColor, isBright } from '../flags/color';
 
 export default {
   name: 'Game',
-  components: { Flag, MultipleProgressBar, IdentityInfo },
+  components: { Flag, MultipleProgressBar, IdentityInfo, FlexBtn },
   data: () => ({
     correctAnswers: [],
     selectedOption: null as string | null,
