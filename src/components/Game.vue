@@ -115,7 +115,6 @@ export default {
         if (this.flagIndex >= this.flagAmount - 1) {
           this.game.timeEnded = new Date();
           this.$emit('done', this.game);
-          console.log(this.game);
           return;
         }
         this.answered = false;
