@@ -61,11 +61,18 @@ import FlexBtn from './FlexBtn.vue';
 import { flagPresets } from '../flags/flagPresets';
 import { parseColor, isBright } from '../flags/color';
 
+import type { Game } from '../types/game';
+
 export default {
   name: 'Game',
   components: { Flag, MultipleProgressBar, IdentityInfo, FlexBtn },
   data: () => ({
     correctAnswers: [],
+    game: {
+      timeStarted: new Date(),
+      timeEnded: null,
+      playedFlags: [],
+    } as Game,
     selectedOption: null as string | null,
     width: 500,
     allFlags: Object.keys(flagPresets).sort(() => Math.random() - 0.5),
@@ -106,18 +113,23 @@ export default {
     answer(option: string) {
       if (this.answered) {
         if (this.flagIndex >= this.flagAmount - 1) {
-          this.$emit('done');
+          this.game.timeEnded = new Date();
+          this.$emit('done', this.game);
+          console.log(this.game);
           return;
         }
         this.answered = false;
         this.flagIndex++;
         return;
       }
-      if (this.isCorrect(option)) {
-        this.correctAnswers.push(1);
-      } else {
-        this.correctAnswers.push(0);
-      }
+
+      let correct: boolean = this.isCorrect(option);
+      this.game.playedFlags.push({
+        flag: this.flagPreset,
+        chosen: option,
+        correct,
+      });
+      this.correctAnswers.push(correct ? 1 : 0);
       this.selectedOption = option;
       this.answered = true;
     },

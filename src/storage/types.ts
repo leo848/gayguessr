@@ -3,6 +3,7 @@ export type IntoGame = {
 	timeEnded: Date;
 	playedFlags: {
 		title: string;
+		chosen: string;
 		correct: boolean;
 	}[]
 }
