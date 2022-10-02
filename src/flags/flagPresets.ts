@@ -179,6 +179,28 @@ export const flagPresets = {
 		"#009be9",
 		"#4f00cb",
 	]),
+	monogender: Flag.horizontal([
+		"#6c6c6c",
+		"#007440",
+		"#21007c",
+		"#a43900",
+	]),
+	multisexual: Flag.horizontal([
+		"#724dc9",
+		"#ffffff",
+		"#9eefff",
+		"#ff3d9b",
+	]),
+	monosexual: Flag.horizontalWithRatio([
+		["#b65ab6",2],
+		["#ca88ca",2],
+		["#d6a3d6",2],
+		["#ffffff",1],
+		["#ffd509",1],
+		["#646464",2],
+		["#444444",2],
+		["#000000",2],
+	]),
 	bigender: Flag.horizontal([
 		"#c470a2",
 		"#eda5cd",
