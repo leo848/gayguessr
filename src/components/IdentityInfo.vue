@@ -1,5 +1,5 @@
 <template>
-  <v-menu offset-y>
+  <v-menu v-if="identity || alwaysShow" offset-y>
     <template v-slot:activator="{ props }">
       <div v-bind="props">
         <slot />
@@ -23,6 +23,10 @@ export default {
     id: {
       type: String,
       required: true
+    },
+    alwaysShow: {
+      type: Boolean,
+      default: false,
     }
   },
   data: () => ({
