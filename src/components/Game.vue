@@ -128,9 +128,3 @@ export default {
   },
 }
 </script>
-
-<style scoped>
-.option-button, .option-button>* {
-  justify-content: space-between !important;
-}
-</style>
