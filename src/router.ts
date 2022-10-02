@@ -1,5 +1,5 @@
 import { createRouter, createWebHistory } from 'vue-router'
-import Home from './views/Home.vue'
+import Dashboard from './views/Dashboard.vue'
 
 // @ts-ignore
 const base = import.meta.env.BASE_URL;
@@ -7,8 +7,8 @@ const base = import.meta.env.BASE_URL;
 const routes = [
 	{
 		path: base,
-		name: 'Home',
-		component: Home
+		name: 'Dashboard',
+		component: Dashboard
 	}
 ];
 
