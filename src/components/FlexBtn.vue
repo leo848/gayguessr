@@ -19,8 +19,4 @@ export default {
   font-size: 1.125rem;
   height: 52px;
 }
-
-.flex-button:hover {
-  transform: scale(1.08);
-}
 </style>
