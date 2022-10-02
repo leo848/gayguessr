@@ -38,7 +38,7 @@
               </div>
 
               <div v-if="answered && selectedOption === option" class="mr-auto">
-                <v-icon>{{ isCorrect(option) ? "mdi-check" : "mdi-check" }}</v-icon>
+                <v-icon>{{ isCorrect(option) ? "mdi-check" : "mdi-close" }}</v-icon>
               </div>
             </v-btn>
         </v-col>
