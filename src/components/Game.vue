@@ -15,8 +15,8 @@
     <v-col cols="12" align="center">
       <Flag :width="width" :preset="flagPreset" :key="flagIndex"/>
     </v-col>
-    <v-col cols="1" sm="2" md="3" />
-    <v-col cols="10" sm="8" md="6" align="center">
+    <v-col cols="1" sm="2" />
+    <v-col cols="10" sm="8" align="center">
       <v-row>
         <v-col v-for="option, index in options" :key="option" cols="12" sm="6">
             <FlexBtn
@@ -48,7 +48,7 @@
         </v-col>
       </v-row>
     </v-col>
-    <v-col cols="1" sm="2" md="3" />
+    <v-col cols="1" sm="2" />
   </v-row>
 </template>
 
