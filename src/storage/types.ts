@@ -1,5 +1,4 @@
-export type Game = {
-	id ?: number;
+export type IntoGame = {
 	timeStarted: Date;
 	timeEnded: Date;
 	playedFlags: {
@@ -7,3 +6,5 @@ export type Game = {
 		correct: boolean;
 	}[]
 }
+
+export type Game = IntoGame & { id: number }

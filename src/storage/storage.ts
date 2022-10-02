@@ -1,4 +1,4 @@
-import type { Game } from './types';
+import type { Game, IntoGame } from './types';
 
 const GAMES_KEY = 'games';
 
@@ -6,16 +6,21 @@ export function loadGames(): Game[] {
 	return JSON.parse(localStorage.getItem(GAMES_KEY) || '[]');
 }
 
-export function saveGame(game: Game): void {
+export function saveGame(game: IntoGame): void {
 	const games = loadGames();
-	if (game.id !== undefined) throw new Error('Game already has an id');
-	game.id = games.length;
-	games.push(game);
+	let newGame = {
+		...game,
+		id: games.length
+	}
+	games.push(newGame);
 	localStorage.setItem(GAMES_KEY, JSON.stringify(games));
 }
 
 export function deleteGame(id: number): void {
 	const games = loadGames();
 	games.splice(id, 1);
+	for (let i = id; i < games.length; i++) {
+		games[i].id = i;
+	}
 	localStorage.setItem(GAMES_KEY, JSON.stringify(games));
 }
