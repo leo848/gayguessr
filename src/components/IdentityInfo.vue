@@ -5,17 +5,17 @@
         <slot />
       </div>
     </template>
-    <v-card max-width="400" v-if="identity">
+    <v-card max-width="400">
       <v-card-title>{{ id }}</v-card-title>
       <v-card-text>
-        {{ identity.description }}
+        {{ identity?.description || "No description yet." }}
       </v-card-text>
     </v-card>
   </v-menu>
 </template>
 
 <script lang="ts">
-import { Identity, loadIdentity } from '../metadata/identity';
+import { Identity, loadIdentities } from '../metadata/identity';
 
 export default {
   name: 'IdentityInfo',
@@ -29,11 +29,9 @@ export default {
     identity: null as null | Identity
   }),
   async created() {
-    try {
-      this.identity = await loadIdentity(import.meta.env.BASE_URL, this.id);
-    } catch (e) {
+    this.identity = (await loadIdentities())[this.id]
+    if (this.identity == null) {
       console.error("No metadata for: " + this.id);
-      throw e;
     }
   }
 }
