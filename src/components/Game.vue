@@ -105,6 +105,10 @@ export default {
   methods: {
     answer(option: string) {
       if (this.answered) {
+        if (this.flagIndex >= this.flagAmount - 1) {
+          this.$emit('done');
+          return;
+        }
         this.answered = false;
         this.flagIndex++;
         return;
@@ -131,5 +135,6 @@ export default {
       }
     },
   },
+  emits: ['done'],
 }
 </script>
