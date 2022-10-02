@@ -2,7 +2,7 @@
   <v-container>
     <h1 class="text-h3 mb-4">Dashboard</h1>
     <v-row>
-      <v-col cols="2" sm="4">
+      <v-col cols="12" sm="6" md="4" xl="3">
         <v-card to="./game">
           <v-card-title class="text-h4">New Game</v-card-title>
           <v-card-text>
@@ -10,7 +10,14 @@
           </v-card-text>
         </v-card>
       </v-col>
-      <v-col v-for="game in games.slice().reverse().slice(0, 5)" :key="game.id" cols="2" sm="4">
+      <v-col
+        v-for="game in games.slice().reverse().slice(0, 5)"
+        :key="game.id"
+        cols="12"
+        sm="6"
+        md="4"
+        xl="3"
+        >
         <v-card height="100%">
           <v-card-title class="text-h4">#{{ game.id }}</v-card-title>
           <v-card-subtitle class="text-h6">
