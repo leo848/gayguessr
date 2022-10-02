@@ -7,6 +7,7 @@ const base = import.meta.env.BASE_URL;
 const routes = [
 	{
 		path: base,
+		alias: ['/', `${base}/dashboard`],
 		name: 'Dashboard',
 		component: Dashboard
 	},

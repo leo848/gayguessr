@@ -1,6 +1,8 @@
 <template>
   <v-app-bar>
-    <v-app-bar-title>gayguessr</v-app-bar-title>
+    <v-app-bar-title>
+      <router-link to="/" class="no-link">gayguessr</router-link>
+    </v-app-bar-title>
     <v-btn icon @click="toggleDarkMode">
       <v-icon>mdi-brightness-6</v-icon>
     </v-btn>
@@ -25,3 +27,10 @@ export default {
   },
 }
 </script>
+
+<style scoped>
+.no-link {
+  text-decoration: none;
+  color: inherit;
+}
+</style>
