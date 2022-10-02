@@ -23,7 +23,19 @@ function isYamlIdentity(yamlIdentity: YamlIdentity | null): yamlIdentity is Yaml
 	return true;
 }
 
+const identities: { [key: string]: Identity } = {};
+
+export async function loadIdentities(base: string) {
+	for (const key of Object.keys(flagPresets)) {
+		const identity = await loadIdentity(base, key);
+		if (identity) identities[key] = identity;
+	}
+}
+
 export async function loadIdentity(base: string, key: string): Promise<Identity | null> {
+	let lazyIdentity = identities[key];
+	if (lazyIdentity) return lazyIdentity;
+
 	try {
 		const fetchedRawYaml = await fetch(base + 'metadata/' + key + '.yml');
 		const text = await fetchedRawYaml.text();
