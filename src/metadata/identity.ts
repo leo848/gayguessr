@@ -28,10 +28,9 @@ let identities: { [key: string]: Identity } | null = null;
 export async function loadIdentities(): Promise<{ [key: string]: Identity }> {
 	if (identities != null) return identities;
 	else identities = {};
-	for (const key of Object.keys(flagPresets)) {
-		const identity = await loadIdentity(key);
-		if (identity) identities[key] = identity;
-	}
+	const keys = Object.keys(flagPresets);
+	const values = await Promise.all(keys.map(loadIdentity));
+	keys.forEach((key, i) => identities[key] = values[i]);
 	return identities;
 }
 
