@@ -34,7 +34,7 @@
 import GameComponent from '../components/Game.vue'
 
 import type { Game } from '../storage/types'
-import { loadGames, saveGame } from '../storage/storage'
+import { saveGame } from '../storage/storage'
 
 export default {
   name: 'Game',
@@ -52,7 +52,7 @@ export default {
       this.gameDialog = false;
       saveGame(this.game);
       this.game = null;
-      this.$router.push('/');
+      this.$router.push(import.meta.env.BASE_URL);
     },
   },
 }
