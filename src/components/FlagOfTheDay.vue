@@ -1,7 +1,11 @@
 <template>
-  <IdentityInfo :id="flag" always-show>
-  <Flag :preset="flag" :width="300"/>
-  </IdentityInfo>
+  <v-row>
+    <v-col cols="12" sm="6" xl="4">
+      <IdentityInfo :id="flag" always-show>
+      <Flag :preset="flag"/>
+      </IdentityInfo>
+    </v-col>
+  </v-row>
 </template>
 
 <script lang="ts">

@@ -1,5 +1,5 @@
 <template>
-  <canvas id="flag-canvas" class="rounded-xl" :width="flagWidth" :height="flagHeight"></canvas>
+  <canvas id="flag-canvas" class="rounded-xl"></canvas>
 </template>
 
 <script lang="ts">
@@ -26,28 +26,23 @@ export default {
         return value instanceof Flag;
       }
     },
-    random: {
-      type: Boolean,
-      default: false,
-    },
     ratio: {
       type: Number,
-      default: 7 / 5,
+      default: 7/5
     },
     width: {
-      type: Number,
-      default: (props: {height ?: number, ratio: number}) => (props.height ?? 500) * props.ratio,
+      type: String,
+      default: '100%'
     },
     height: {
-      type: Number,
-      default: (props: {width ?: number, ratio: number}) => (props.width ?? 700) / props.ratio
+      type: String,
+      required: false
     },
   },
   data: () => ({
+    canvas: null as null | HTMLCanvasElement,
     ctx: null as CanvasRenderingContext2D | null,
     displayFlag: null as Flag | null,
-    flagWidth: 0,
-    flagHeight: 0,
     presets: flagPresets,
   }),
   watch: {
@@ -64,16 +59,22 @@ export default {
     }
   },
   mounted() {
-    const canvas = document.getElementById("flag-canvas") as HTMLCanvasElement;
-    this.ctx = canvas.getContext("2d");
-
+    this.canvas = document.getElementById("flag-canvas") as HTMLCanvasElement;
+    this.ctx = this.canvas.getContext("2d");
     this.displayFlag = this.flag;
 
-    if (this.random) {
-      this.displayFlag = this.presets[Object.keys(this.presets)[Math.floor(Math.random() * Object.keys(this.presets).length)]];
-    }
+    this.resizeCanvas();
 
-    this.displayFlag.paint(this.ctx);
+    window.addEventListener("resize", this.resizeCanvas);
+  },
+  methods: {
+    resizeCanvas() {
+      this.canvas.style.width = this.width;
+      this.canvas.style.height = this.height ?? this.canvas.offsetWidth / this.ratio + "px";
+      this.canvas.width = this.canvas.offsetWidth;
+      this.canvas.height = this.canvas.offsetHeight;
+      this.displayFlag.paint(this.ctx);
+    }
   }
 }
 </script>

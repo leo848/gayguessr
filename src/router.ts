@@ -7,7 +7,7 @@ const base = import.meta.env.BASE_URL;
 const routes = [
 	{
 		path: base,
-		alias: ['/', `${base}/dashboard`],
+		alias: ['/', `${base}dashboard`],
 		name: 'Dashboard',
 		component: Dashboard
 	},
@@ -15,6 +15,11 @@ const routes = [
 		path: `${base}game`,
 		name: 'Game',
 		component: () => import('./views/Game.vue')
+	},
+	{
+		path: `${base}identity/:id`,
+		name: 'Identity',
+		component: () => import('./views/Identity.vue')
 	}
 ];
 

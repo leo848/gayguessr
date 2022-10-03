@@ -35,7 +35,7 @@ export async function loadIdentities(): Promise<{ [key: string]: Identity }> {
 }
 
 export async function loadIdentity(key: string): Promise<Identity | null> {
-	let lazyIdentity = identities[key];
+	let lazyIdentity = identities != null && identities[key];
 	if (lazyIdentity) return lazyIdentity;
 
 	try {
