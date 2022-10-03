@@ -1,7 +1,7 @@
 <template>
   <v-app-bar>
     <v-app-bar-title>
-      <router-link to="/" class="no-link">gayguessr</router-link>
+      <router-link to="/gayguessr" class="no-link">gayguessr</router-link>
     </v-app-bar-title>
     <v-btn icon @click="toggleDarkMode">
       <v-icon>mdi-brightness-6</v-icon>
