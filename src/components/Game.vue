@@ -13,7 +13,7 @@
       </v-row>
     </v-col>
     <v-col cols="12" align="center">
-      <Flag :width="width" :preset="flagPreset" :key="flagIndex"/>
+      <Flag :width="width + 'px'" :preset="flagPreset" :key="flagIndex"/>
     </v-col>
     <v-col cols="1" sm="2" lg="3" />
     <v-col cols="10" sm="8" lg="6" align="center">
