@@ -1,5 +1,5 @@
 <template>
-  <canvas id="flag-canvas" class="rounded-xl"></canvas>
+  <canvas ref="canvas" class="rounded-xl"></canvas>
 </template>
 
 <script lang="ts">
@@ -59,7 +59,7 @@ export default {
     }
   },
   mounted() {
-    this.canvas = document.getElementById("flag-canvas") as HTMLCanvasElement;
+    this.canvas = this.$refs.canvas as HTMLCanvasElement;
     this.ctx = this.canvas.getContext("2d");
     this.displayFlag = this.flag;
 
