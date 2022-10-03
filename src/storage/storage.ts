@@ -1,4 +1,5 @@
-import type { Game, IntoGame } from './types';
+import { defaultSettings } from './defaults';
+import type { Game, IntoGame, Settings } from './types';
 
 const GAMES_KEY = 'games';
 
@@ -29,4 +30,23 @@ export function deleteGame(id: number): void {
 		games[i].id = i;
 	}
 	localStorage.setItem(GAMES_KEY, JSON.stringify(games));
+}
+
+export function loadSettings(): Settings {
+	return {
+		...defaultSettings,
+		...JSON.parse(localStorage.getItem('settings') || '{}')
+	};
+}
+
+export function changeSettings(newSettings: Partial<Settings>): void {
+	const settings = loadSettings();
+	localStorage.setItem('settings', JSON.stringify({
+		...settings,
+		...newSettings
+	}));
+}
+
+export function restoreDefaultSettings(): void {
+	localStorage.setItem('settings', JSON.stringify(defaultSettings));
 }

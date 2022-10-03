@@ -14,5 +14,3 @@ export type Settings = {
 	colorfulButtons: boolean,
 	autoSkip: boolean,
 }
-
-export type ApplySettings = Partial<Settings>;
