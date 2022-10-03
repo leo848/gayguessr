@@ -71,6 +71,27 @@ export const flagPresets = {
 		"#ffffff",
 		"#800080",
 	]),
+	aromantic: Flag.horizontal([
+		"#00b44b",
+		"#99e07d",
+		"#ffffff",
+		"#a9a9a9",
+		"#000000",
+	]),
+	graysexual: Flag.horizontal([
+		"#790196",
+		"#afb2af",
+		"#ffffff",
+		"#afb2af",
+		"#790196",
+	]),
+	grayromantic: Flag.horizontal([
+		"#2da038",
+		"#afb2ad",
+		"#ffffff",
+		"#afb2ad",
+		"#2da038",
+	]),
 	pansexual: Flag.horizontal([
 		"#ff218c",
 		"#ffd800",
@@ -84,6 +105,13 @@ export const flagPresets = {
 		"#ffebfb",
 		"#ffddcd",
 		"#fff798"
+	]),
+	graygender: Flag.horizontalWithRatio([
+		["#c0bdbe", 33],
+		["#ffffff", 8],
+		["#200081", 33],
+		["#ffffff", 8],
+		["#535253", 33],
 	]),
 	androgyne: Flag.vertical([
 		"#fe007f",
