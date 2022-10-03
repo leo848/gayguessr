@@ -1,22 +1,28 @@
 <template>
   <v-container>
-    <h1 class="text-h3 mb-4">Dashboard</h1>
-    <GamesList :games="games" />
-    <h2 class="text-h4 mt-6">
-      Flag of the day ({{ new Date().toLocaleDateString() }})
-      <v-tooltip top max-width="300px">
-        <template v-slot:activator="{ props }">
-          <v-btn icon="mdi-information" variant="text" v-bind="props" />
-        </template>
-        <span>
-          The flag of the day is calculated based on the hash of the current day
-          and is dependent on the amount of flags. This means that as more flags
-          get added, the flag of the day might change more than once per day.
-        </span>
-      </v-tooltip>
-    </h2>
-    <p class="mb-4">Click for more information.</p>
-    <FlagOfTheDay />
+    <v-row>
+      <v-col cols="12" lg="8">
+        <h1 class="text-h3 mb-4">Dashboard</h1>
+        <GamesList :games="games" />
+      </v-col>
+      <v-col cols="12" sm="6" lg="4">
+        <h2 class="text-h4 mt-6">
+          Flag of the day ({{ new Date().toLocaleDateString() }})
+          <v-tooltip top max-width="300px">
+            <template v-slot:activator="{ props }">
+              <v-btn icon="mdi-information" variant="text" v-bind="props" />
+            </template>
+            <span>
+              The flag of the day is calculated based on the hash of the current day
+              and is dependent on the amount of flags. This means that as more flags
+              get added, the flag of the day might change more than once per day.
+            </span>
+          </v-tooltip>
+        </h2>
+        <p class="mb-4">Click for more information.</p>
+        <FlagOfTheDay width="70%" />
+      </v-col>
+    </v-row>
   </v-container>
 </template>
 
