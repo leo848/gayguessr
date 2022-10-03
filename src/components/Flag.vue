@@ -1,5 +1,5 @@
 <template>
-  <canvas id="flag-canvas" class="rounded-xl" :width="width" :height="height"></canvas>
+  <canvas id="flag-canvas" class="rounded-xl" :width="flagWidth" :height="flagHeight"></canvas>
 </template>
 
 <script lang="ts">
@@ -46,12 +46,21 @@ export default {
   data: () => ({
     ctx: null as CanvasRenderingContext2D | null,
     displayFlag: null as Flag | null,
+    flagWidth: 0,
+    flagHeight: 0,
     presets: flagPresets,
   }),
   watch: {
     flag(_oldFlag: Flag|null, newFlag: Flag|null) {
       if (newFlag == null) return;
       newFlag.paint(this.ctx);
+    }
+  },
+  created() {
+    this.flagWidth = this.width;
+    if (this.flagWidth > window.innerWidth - 20) {
+      this.flagWidth = window.innerWidth - 20;
+      this.flagHeight = this.flagWidth / this.ratio;
     }
   },
   mounted() {
