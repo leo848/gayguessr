@@ -9,3 +9,10 @@ export type IntoGame = {
 }
 
 export type Game = IntoGame & { id: number }
+
+export type Settings = {
+	colorfulButtons: boolean,
+	autoSkip: boolean,
+}
+
+export type ApplySettings = Partial<Settings>;
