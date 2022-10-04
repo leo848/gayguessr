@@ -29,7 +29,7 @@
         <v-card>
           <v-card-text>
             <h2 class="text-h4 mb-2">Stats</h2>
-            <p class="text-h5">Total time played: {{ totalTimePlayed() }} ms</p>
+            <p class="text-h5">Total time played: {{ totalTimePlayed() }}</p>
           </v-card-text>
         </v-card>
       </v-col>
@@ -44,6 +44,8 @@ import type { Game } from '../storage/types'
 import FlagOfTheDay from '../components/FlagOfTheDay.vue'
 import GamesList from '../components/GamesList.vue'
 
+import { Duration } from 'luxon'
+
 export default {
   name: 'Dashboard',
   data: () => ({
@@ -51,8 +53,28 @@ export default {
   }),
   methods: {
     totalTimePlayed() {
-      return this.games.reduce((acc: number, game: Game) =>
-        acc + game.timeEnded.getTime() - game.timeStarted.getTime(), 0)
+      // The total time played is the sum of all the time played in all the games.
+      // Luxon is used to format the duration, which doesn't give a nice way to 
+      // format the duration in a human-readable, so it's done manually.
+
+      let totalTimeSeconds = Math.floor(
+        this.games.reduce(
+          (acc: number, game: Game) =>
+            acc + game.timeEnded.getTime() - game.timeStarted.getTime(), 0
+        ) / 1000
+      );
+
+      console.log(totalTimeSeconds);
+
+      const days = totalTimeSeconds / 86400 > 1 ? Math.floor(totalTimeSeconds / 86400) : undefined;
+      totalTimeSeconds = totalTimeSeconds % 86400;
+      const hours = totalTimeSeconds / 3600 > 1 ? Math.floor(totalTimeSeconds / 3600) : undefined;
+      totalTimeSeconds = totalTimeSeconds % 3600;
+      const minutes = totalTimeSeconds / 60 > 1 ? Math.floor(totalTimeSeconds / 60) : undefined;
+      totalTimeSeconds = totalTimeSeconds % 60;
+      const seconds = Math.floor(totalTimeSeconds);
+
+      return Duration.fromObject({ days, hours, minutes, seconds }).normalize().toHuman()
     },
   },
   components: { FlagOfTheDay, GamesList },
