@@ -6,7 +6,9 @@
         <GamesList :games="games" />
       </v-col>
       <v-col cols="12" sm="6" lg="4">
-        <h2 class="text-h4 mt-6">
+        <v-card>
+          <v-card-text>
+            <h2 class="text-h4 mt-6">
           Flag of the day ({{ new Date().toLocaleDateString() }})
           <v-tooltip top max-width="300px">
             <template v-slot:activator="{ props }">
@@ -18,9 +20,11 @@
               get added, the flag of the day might change more than once per day.
             </span>
           </v-tooltip>
-        </h2>
-        <p class="mb-4">Click for more information.</p>
-        <FlagOfTheDay width="70%" />
+            </h2>
+            <p class="mb-4">Click for more information.</p>
+            <FlagOfTheDay width="70%" />
+          </v-card-text>
+        </v-card>
       </v-col>
     </v-row>
   </v-container>
