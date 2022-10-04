@@ -19,32 +19,32 @@
     <v-col cols="10" sm="8" lg="6" align="center">
       <v-row>
         <v-col v-for="option, index in options" :key="option" cols="12" sm="6">
-            <FlexBtn
-              @click="answer(option)"
-              :color="buttonColor(index)"
-              :style="buttonStyle(index)"
-              class="option-button"
-              block
-              size="x-large"
-              >
-              <div>
-                <IdentityInfo :id="option">
-                <v-icon>mdi-information</v-icon>
-                </IdentityInfo>
-              </div>
+          <FlexBtn
+            @click="answer(option)"
+            :color="buttonColor(index)"
+            :style="buttonStyle(index)"
+            class="option-button"
+            block
+            size="x-large"
+            >
+            <div>
+              <IdentityInfo :id="option">
+              <v-icon>mdi-information</v-icon>
+              </IdentityInfo>
+            </div>
 
-              <v-spacer />
+            <v-spacer />
 
-              <div>
-                {{ option }}
-              </div>
+            <div>
+              {{ option }}
+            </div>
 
-              <v-spacer />
+            <v-spacer />
 
-              <div v-if="answered && selectedOption === option">
-                <v-icon>{{ isCorrect(option) ? "mdi-check" : "mdi-close" }}</v-icon>
-              </div>
-            </FlexBtn>
+            <div v-if="answered && selectedOption === option">
+              <v-icon>{{ isCorrect(option) ? "mdi-check" : "mdi-close" }}</v-icon>
+            </div>
+          </FlexBtn>
         </v-col>
       </v-row>
     </v-col>
