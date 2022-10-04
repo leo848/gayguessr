@@ -29,6 +29,7 @@
         <v-card>
           <v-card-text>
             <h2 class="text-h4 mb-2">Stats</h2>
+            <p class="text-h5">Amount of games: {{ games.length }}</p>
             <p class="text-h5">Total time played: {{ totalTimePlayed() }}</p>
           </v-card-text>
         </v-card>
