@@ -25,7 +25,13 @@
           <v-card-text>
             <h2 class="text-h4 mb-2">Stats</h2>
             <p class="text-h5">Amount of games: {{ games.length }}</p>
-            <p class="text-h5">Total time played: {{ totalTimePlayed() }}</p>
+            <p class="text-h5">
+              Total time played: {{ totalTimePlayed() }}
+              <InfoTooltip>
+                  The total time played is based on the amount of time spent in each game,
+                  i.e. the difference between the start and end time of each game.
+              </InfoTooltip>
+            </p>
           </v-card-text>
         </v-card>
       </v-col>
