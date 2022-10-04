@@ -25,12 +25,21 @@
           </v-card-text>
         </v-card>
       </v-col>
+      <v-col cols="12" sm="6" lg="4">
+        <v-card>
+          <v-card-text>
+            <h2 class="text-h4 mb-2">Stats</h2>
+            <p class="text-h5">Total time played: {{ totalTimePlayed() }} ms</p>
+          </v-card-text>
+        </v-card>
+      </v-col>
     </v-row>
   </v-container>
 </template>
 
 <script lang="ts">
 import { loadGames } from '../storage/storage'
+import type { Game } from '../storage/types'
 
 import FlagOfTheDay from '../components/FlagOfTheDay.vue'
 import GamesList from '../components/GamesList.vue'
@@ -40,6 +49,12 @@ export default {
   data: () => ({
     games: loadGames(),
   }),
+  methods: {
+    totalTimePlayed() {
+      return this.games.reduce((acc: number, game: Game) =>
+        acc + game.timeEnded.getTime() - game.timeStarted.getTime(), 0)
+    },
+  },
   components: { FlagOfTheDay, GamesList },
 }
 </script>
