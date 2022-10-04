@@ -131,6 +131,16 @@ export const flagPresets = {
 		["#ffffff", 8],
 		["#535253", 33],
 	]),
+	neutrois: Flag.horizontal([
+		"#ffffff",
+		"#2f9c1d",
+		"#000000",
+	]),
+	maverique: Flag.horizontal([
+		"#fff344",
+		"#ffffff",
+		"#f49622",
+	]),
 	androgyne: Flag.vertical([
 		"#fe007f",
 		"#9832ff",
