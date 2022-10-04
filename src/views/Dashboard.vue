@@ -64,8 +64,6 @@ export default {
         ) / 1000
       );
 
-      console.log(totalTimeSeconds);
-
       const days = totalTimeSeconds / 86400 > 1 ? Math.floor(totalTimeSeconds / 86400) : undefined;
       totalTimeSeconds = totalTimeSeconds % 86400;
       const hours = totalTimeSeconds / 3600 > 1 ? Math.floor(totalTimeSeconds / 3600) : undefined;
