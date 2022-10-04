@@ -9,7 +9,7 @@
       </v-card>
     </v-col>
     <v-col
-      v-for="game in games.slice().reverse().slice(0, 5)"
+      v-for="game in games.slice().reverse().slice(0, amount)"
       :key="game.id"
       cols="12"
       sm="6"
@@ -45,7 +45,11 @@ export default {
     games: {
       type: Array,
       required: true
-    }
+    },
+    amount: {
+      type: Number,
+      default: 5
+    },
   },
   methods: {
     formatDate(date: Date) {
