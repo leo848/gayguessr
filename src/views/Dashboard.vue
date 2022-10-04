@@ -2,13 +2,12 @@
   <v-container>
     <v-row>
       <v-col cols="12" lg="8">
-        <h1 class="text-h3 mb-4">Dashboard</h1>
         <GamesList :games="games" />
       </v-col>
       <v-col cols="12" sm="6" lg="4">
         <v-card>
           <v-card-text>
-            <h2 class="text-h4 mt-6">
+            <h2 class="text-h4">
           Flag of the day ({{ new Date().toLocaleDateString() }})
           <v-tooltip top max-width="300px">
             <template v-slot:activator="{ props }">

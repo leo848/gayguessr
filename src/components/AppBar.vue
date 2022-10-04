@@ -1,8 +1,14 @@
 <template>
   <v-app-bar>
     <v-app-bar-title>
-      <router-link to="/gayguessr" class="no-link">gayguessr</router-link>
+      <router-link to="/gayguessr" class="no-link">
+        gayguessr
+      </router-link>
     </v-app-bar-title>
+    <p class="text-h5">
+      {{ $route.meta.title }}
+    </p>
+    <v-spacer />
     <v-btn icon @click="toggleDarkMode">
       <v-icon>mdi-brightness-6</v-icon>
     </v-btn>
