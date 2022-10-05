@@ -11,10 +11,6 @@
 export default {
   name: 'InfoTooltip',
   props: {
-    text: {
-      type: String,
-      required: true,
-    },
     maxWidth: {
       type: String,
       default: '300px',
