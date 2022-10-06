@@ -7,7 +7,7 @@
           <v-icon size="80">mdi-plus-circle</v-icon>
         </v-card-text>
         <v-dialog v-model="dialog" max-width="600px">
-          <NewGameDialog />
+          <NewGameDialog @cancel="dialog = false" />
         </v-dialog>
       </v-card>
     </v-col>
