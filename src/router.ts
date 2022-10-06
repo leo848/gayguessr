@@ -23,6 +23,12 @@ const routes = [
 		name: 'Identity',
 		component: () => import('./views/Identity.vue'),
 		meta: { title: 'Identity' },
+	},
+	{
+		path: `${base}all-flags`,
+		name: 'AllFlags',
+		component: () => import('./views/AllFlags.vue'),
+		meta: { title: 'All Flags' },
 	}
 ];
 
