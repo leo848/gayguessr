@@ -60,9 +60,10 @@
       </v-container>
     </v-card-text>
     <v-card-actions>
+      <v-btn @click="$router.replace('/gayguessr')" color="primary" text>Cancel</v-btn>
+      <v-btn @click="restoreDefaultSettings" class="px-4">Reset</v-btn>
       <v-spacer></v-spacer>
-      <v-btn @click="restoreDefaultSettings">Reset</v-btn>
-      <v-btn color="primary" @click="start">Start</v-btn>
+      <v-btn color="primary" @click="start" variant="elevated" size="x-large" class="px-4">Start</v-btn>
     </v-card-actions>
   </v-card>
 </template>
