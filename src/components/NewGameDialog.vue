@@ -9,17 +9,25 @@
           <v-col cols="12">
             <v-select v-model="settings.stopAfter.type" :items="stopAfterItems" label="Stop game after..."></v-select>
           </v-col>
-          <v-col v-if="settings.stopAfter.type === 'amount'" cols="9">
-            <v-slider required v-model="settings.stopAfter.amount" step="1" min="4" :max="maxFlags()" />
+          <v-col v-if="settings.stopAfter.type === 'amount'" cols="12">
+            <v-row>
+              <v-col cols="9">
+                <v-slider required v-model="settings.stopAfter.amount" step="1" min="4" :max="maxFlags()" />
+              </v-col>
+              <v-col cols="3">
+                <v-text-field type="number" v-model="settings.stopAfter.amount" />
+              </v-col>
+            </v-row>
           </v-col>
-          <v-col v-if="settings.stopAfter.type === 'amount'" cols="3">
-            <v-text-field type="number" v-model="settings.stopAfter.amount" />
-          </v-col>
-          <v-col v-else-if="settings.stopAfter.type === 'time'" cols="6">
-            <v-text-field type="number" v-model="timeInput.amount" />
-          </v-col>
-          <v-col v-if="settings.stopAfter.type === 'time'" cols="6">
-            <v-select :items="['seconds','minutes','hours']" v-model="timeInput.type" />
+          <v-col v-else-if="settings.stopAfter.type === 'time'" cols="12">
+            <v-row>
+              <v-col cols="6">
+                <v-text-field type="number" v-model="timeInput.amount" />
+              </v-col>
+              <v-col cols="6">
+                <v-select :items="['seconds','minutes','hours']" v-model="timeInput.type" />
+              </v-col>
+            </v-row>
           </v-col>
           <v-col cols="12">
             You will play {{ flags() }} flags.
