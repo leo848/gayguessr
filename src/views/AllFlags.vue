@@ -35,6 +35,18 @@
           </v-card>
           </IdentityInfo>
         </v-col>
+        <v-col cols="12" sm="6" lg="4" v-if="flags.filter(test).length === 0">
+          <v-card color="error">
+            <v-card-text>
+              <p class="text-h3 mb-4">No flags found</p>
+              <p class="text-h5">
+                You want to suggest or add a flag or identity?
+                Open an <v-btn :href="'https://github.com/leo848/gayguessr/issues/new?assignees=&labels=flag-request&template=request-a-flag---identity.md&title=Add%20'+search" target="_blank" variant="tonal" size="large">issue</v-btn>
+                on <v-btn href="https://github.com/leo848/gayguessr/" variant="tonal">GitHub</v-btn>.
+              </p>
+            </v-card-text>
+          </v-card>
+        </v-col>
     </v-row>
   </v-container>
 </template>
