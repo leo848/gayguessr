@@ -14,3 +14,12 @@ export type Settings = {
 	colorfulButtons: boolean,
 	autoSkip: boolean,
 }
+
+export type StopAfter = { type: 'amount', amount: number } | { type: 'time', time: number };
+
+export type CategoryFilter = never; // TODO
+
+export type GameSettings = {
+	stopAfter: StopAfter,
+	category ?: CategoryFilter,
+};
