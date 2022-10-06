@@ -23,9 +23,11 @@
           </v-tooltip>
         </v-col>
         <v-col cols="12">
-          <p class="text-h5">{{ search ? `${ flags.filter(test).length } flags found` : `Showing ${ flags.filter(test).length } flags` }}</p>
+          <p class="text-h5">{{ search ? `${ flags.filter(test).length } flags found` : `Showing ${ flags.filter(test).length } flags` }}
+            <span v-if="search" class="text-disabled">{{ regex ? `matching ${ search }` : `containing ${ search }` }}</span>
+          </p>
         </v-col>
-        <v-col v-for="name in flags" :key="name" v-show="test(name)" cols="12" sm="6" lg="4">
+        <v-col v-for="(name, index) in flags" :key="name + index" v-show="test(name)" cols="12" sm="6" lg="4">
           <IdentityInfo :id="name" always-show>
           <v-card>
             <v-card-title v-html="highlight(name, search)" />
@@ -78,8 +80,9 @@ export default {
           new RegExp(search, 'g')
           : new RegExp(search.replace(/[-[\]{}()+?.,\\^$|#\s]/g, '\\$&').replace('*', '.+?'), 'ig');
       } catch (e) {
+        if (!regex) throw e;
         this.error = e.message;
-        return flags;
+        return /./g;
       }
     },
   },
