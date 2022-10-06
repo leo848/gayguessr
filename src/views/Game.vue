@@ -1,6 +1,6 @@
 <template>
   <v-container>
-    <GameComponent class="mt-2" @done="showAlert" />
+    <GameComponent :settings="gameSettings" class="mt-2" @done="showAlert" />
     <v-dialog v-model="gameDialog" max-width="500px" persistent>
       <v-card v-if="game">
         <v-card-title>Well done!</v-card-title>
@@ -34,7 +34,7 @@
 import GameComponent from '../components/Game.vue'
 
 import type { Game } from '../storage/types'
-import { saveGame } from '../storage/storage'
+import { loadGameSettings, saveGame } from '../storage/storage'
 
 export default {
   name: 'Game',
@@ -42,6 +42,7 @@ export default {
   data: () => ({
     gameDialog: false,
     game: null as Game | null,
+    gameSettings: loadGameSettings(),
   }),
   methods: {
     showAlert(game: Game) {

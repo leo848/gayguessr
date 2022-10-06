@@ -66,6 +66,12 @@ import type { Game } from '../types/game';
 export default {
   name: 'Game',
   components: { Flag, MultipleProgressBar, IdentityInfo, FlexBtn },
+  props: {
+    settings: {
+      type: Object,
+      required: true,
+    }
+  },
   data: () => ({
     correctAnswers: [],
     game: {
