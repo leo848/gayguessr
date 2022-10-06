@@ -84,8 +84,10 @@ export default {
     },
   },
   created() {
-    const random = seededRandom(new Date().toUTCString());
-    this.flags = shuffle(this.flags, random);
+    // const random = seededRandom(new Date().toUTCString());
+    // this.flags = shuffle(this.flags, random);
+
+    this.flags = this.flags.sort();
 
     this.search = this.$route.query.search as string || "";
   },
