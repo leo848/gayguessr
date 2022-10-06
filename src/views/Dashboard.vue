@@ -71,9 +71,9 @@ export default {
       totalTimeSeconds = totalTimeSeconds % 86400;
       const hours = totalTimeSeconds / 3600 > 1 ? Math.floor(totalTimeSeconds / 3600) : undefined;
       totalTimeSeconds = totalTimeSeconds % 3600;
-      const minutes = totalTimeSeconds / 60 > 1 ? Math.floor(totalTimeSeconds / 60) : undefined;
+      const minutes = !days && totalTimeSeconds / 60 > 1 ? Math.floor(totalTimeSeconds / 60) : undefined;
       totalTimeSeconds = totalTimeSeconds % 60;
-      const seconds = Math.floor(totalTimeSeconds);
+      const seconds = !days && !hours && !minutes && Math.floor(totalTimeSeconds) || undefined;
 
       return Duration.fromObject({ days, hours, minutes, seconds }).normalize().toHuman()
     },
