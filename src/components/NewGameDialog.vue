@@ -7,14 +7,22 @@
       <v-container>
         <v-row>
           <v-col cols="12">
-            <v-select v-model="settings.stopAfter.type" :items="stopAfterItems" label="Stop game after..."></v-select>
+            <v-select v-model="settings.stopAfter.type" :items="stopAfterItems" hint="Stop game after..."></v-select>
           </v-col>
           <v-col v-if="settings.stopAfter.type === 'amount'" cols="12">
             <v-row>
-              <v-col cols="9">
-                <v-slider required v-model="settings.stopAfter.amount" step="1" min="4" :max="maxFlags()" />
+              <v-col cols="6" sm="9">
+                Amount of flags:
+                <v-slider
+                  required
+                  thumb-label
+                  v-model="settings.stopAfter.amount"
+                  step="1"
+                  min="4"
+                  :max="maxFlags()"
+                  />
               </v-col>
-              <v-col cols="3">
+              <v-col cols="6" sm="3">
                 <v-text-field type="number" v-model="settings.stopAfter.amount" />
               </v-col>
             </v-row>
@@ -37,7 +45,7 @@
     </v-card-text>
     <v-card-actions>
       <v-spacer></v-spacer>
-      <v-btn color="primary" to="./game">Start</v-btn>
+      <v-btn color="primary" @click="start">Start</v-btn>
     </v-card-actions>
   </v-card>
 </template>
@@ -68,6 +76,10 @@ export default {
     }
   },
   methods: {
+    start() {
+      changeGameSettings(this.settings);
+      this.$router.push('./game');
+    },
     maxFlags() {
       return Object.keys(flagPresets).length;
     },
