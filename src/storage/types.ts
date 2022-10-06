@@ -15,7 +15,10 @@ export type Settings = {
 	autoSkip: boolean,
 }
 
-export type StopAfter = { type: 'amount', amount: number } | { type: 'time', time: number };
+export type StopAfter = 
+	| { type: 'all' }
+	| { type: 'amount', amount: number }
+	| { type: 'time', time: number };
 
 export type CategoryFilter = never; // TODO
 
