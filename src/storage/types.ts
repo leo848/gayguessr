@@ -15,14 +15,10 @@ export type Settings = {
 	autoSkip: boolean,
 }
 
-export type StopAfter = 
-	| { type: 'all' }
-	| { type: 'amount', amount: number }
-	| { type: 'time', amount: number };
-
 export type CategoryFilter = never; // TODO
 
 export type GameSettings = {
-	stopAfter: StopAfter,
+	limit ?: number,
+	timeLimit ?: number,
 	category ?: CategoryFilter,
 };

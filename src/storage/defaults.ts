@@ -5,7 +5,5 @@ export const defaultSettings: Settings = {
 	autoSkip: false,
 };
 
-export const defaultGameSettings: GameSettings = {
-	stopAfter: { type: 'all' },
-};
+export const defaultGameSettings: GameSettings = { };
 

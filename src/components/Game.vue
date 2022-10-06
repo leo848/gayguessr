@@ -91,9 +91,7 @@ export default {
       return this.allFlags[this.flagIndex];
     },
     flagAmount() {
-      return this.settings.stopAfter.type === 'amount' ?
-          this.settings.stopAfter.amount
-        : Object.keys(flagPresets).length;
+      return this.settings.limit ?? Object.keys(flagPresets).length;
     },
     options() {
       const options = [this.flagPreset];
@@ -121,10 +119,11 @@ export default {
     }
   },
   created() {
-    if (this.settings.stopAfter.type === 'time') {
-      window.timeout = setTimeout(() => {
+    if (this.settings.timeLimit) {
+      setTimeout(() => {
+        this.game.timeEnded = new Date();
         this.$emit('done', this.game, { reason: 'time' });
-      }, this.settings.stopAfter.amount * 1000);
+      }, this.settings.timeLimit * 1000);
     }
   },
   methods: {

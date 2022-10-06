@@ -6,28 +6,25 @@
     <v-card-text>
       <v-container>
         <v-row>
-          <v-col cols="12">
-            <v-select v-model="settings.stopAfter.type" :items="stopAfterItems" hint="Stop game after..."></v-select>
-          </v-col>
-          <v-col v-if="settings.stopAfter.type === 'amount'" cols="12">
+          <v-col v-if="limit" cols="12">
             <v-row>
               <v-col cols="6" sm="9">
                 Amount of flags:
                 <v-slider
                   required
                   thumb-label
-                  v-model="settings.stopAfter.amount"
+                  v-model="settings.limit"
                   step="1"
                   min="4"
                   :max="maxFlags()"
                   />
               </v-col>
               <v-col cols="6" sm="3">
-                <v-text-field type="number" v-model="settings.stopAfter.amount" />
+                <v-text-field min="4" :max="maxFlags()" type="number" v-model="settings.limit" />
               </v-col>
             </v-row>
           </v-col>
-          <v-col v-else-if="settings.stopAfter.type === 'time'" cols="12">
+          <v-col v-if="timeLimit" cols="12">
             <v-row>
               <v-col cols="6">
                 <v-text-field type="number" v-model="timeInput.amount" />
@@ -36,6 +33,10 @@
                 <v-select :items="['seconds','minutes','hours']" v-model="timeInput.type" />
               </v-col>
             </v-row>
+          </v-col>
+          <v-col cols="12">
+            <v-btn v-if="!limit" @click="settings.limit = 10; limit = true">Limit the amount of flags</v-btn> <br/>
+            <v-btn v-if="!timeLimit" @click="timeLimit = true">Add time limit</v-btn>
           </v-col>
           <v-col cols="12">
             You will play {{ flags() }} flags.
@@ -58,22 +59,18 @@ export default {
   name: "NewGameDialog",
   data: () => ({
     settings: loadGameSettings(),
-    stopAfterItems: [
-      { value: 'all', title: 'Play all flags' },
-      { value: 'amount', title: 'Limit to a specific amount' },
-      { value: 'time', title: 'Only play for a limited amount of time' },
-    ],
-    timeInput: { type: 'minutes' as 'minutes' | 'seconds' | 'hours', amount: 1 }
+    timeInput: { type: 'minutes' as 'minutes' | 'seconds' | 'hours', amount: 1 },
+    limit: false,
+    timeLimit: false,
   }),
   watch: {
     timeInput(_old, newTimeInput) {
-      this.settings.stopAfterItems.type = 'time';
       let amount = newTimeInput.amount;
       if (newTimeInput.type === 'seconds') amount *= 1;
       else if (newTimeInput.type === 'minutes') amount *= 60;
       else if (newTimeInput.type === 'hours') amount *= 3600;
-      this.settings.stopAfterItems.amount = amount;
-    }
+      this.settings.timeLimit = amount;
+    },
   },
   methods: {
     start() {
@@ -86,7 +83,7 @@ export default {
     flags() {
       return Math.min(
         this.maxFlags(),
-        this.settings.stopAfter.type === 'amount' ? this.settings.stopAfter.amount : Infinity,
+        this.settings.limit ?? Infinity,
       );
     }
   }
