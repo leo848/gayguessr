@@ -62,13 +62,14 @@ import { flagPresets } from '../flags/flagPresets';
 import { parseColor, isBright } from '../flags/color';
 
 import type { Game } from '../types/game';
+import { GameSettings } from '../storage/types';
 
 export default {
   name: 'Game',
   components: { Flag, MultipleProgressBar, IdentityInfo, FlexBtn },
   props: {
     settings: {
-      type: Object,
+      type: Object as () => GameSettings,
       required: true,
     }
   },
@@ -83,12 +84,16 @@ export default {
     width: 500,
     allFlags: Object.keys(flagPresets).sort(() => Math.random() - 0.5),
     flagIndex: 0,
-    flagAmount: Object.keys(flagPresets).length,
     answered: false,
   }),
   computed: {
     flagPreset() {
       return this.allFlags[this.flagIndex];
+    },
+    flagAmount() {
+      return this.settings.stopAfter.type === 'amount' ?
+          this.settings.stopAfter.amount
+        : Object.keys(flagPresets).length;
     },
     options() {
       const options = [this.flagPreset];
