@@ -18,7 +18,7 @@ export type Settings = {
 export type StopAfter = 
 	| { type: 'all' }
 	| { type: 'amount', amount: number }
-	| { type: 'time', time: number };
+	| { type: 'time', amount: number };
 
 export type CategoryFilter = never; // TODO
 
