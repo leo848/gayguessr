@@ -96,7 +96,11 @@ export default {
   },
   methods: {
     test(text: string) {
-      return this.searchRegex.test(text);
+      if (this.regex) {
+        return this.searchRegex.test(text);
+      } else {
+        return text.toLowerCase().includes(this.search.toLowerCase());
+      }
     },
     highlight(text: string, search: string) {
       if (!search) return text;
