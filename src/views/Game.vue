@@ -3,7 +3,7 @@
     <GameComponent :settings="gameSettings" class="mt-2" @done="showAlert" />
     <v-dialog v-model="gameDialog" max-width="500px" persistent>
       <v-card v-if="game">
-        <v-card-title>Well done!</v-card-title>
+        <v-card-title>{{ reason === "time" ? "Time's up!" : "Well done!" }}</v-card-title>
         <v-card-text>
           <v-row>
             <v-col cols="2">
@@ -41,12 +41,14 @@ export default {
   components: { GameComponent },
   data: () => ({
     gameDialog: false,
+    reason: null as { reason: string } | undefined,
     game: null as Game | null,
     gameSettings: loadGameSettings(),
   }),
   methods: {
-    showAlert(game: Game) {
+    showAlert(game: Game, reason: { reason: string }) {
       this.game = game;
+      this.reason = reason?.reason ?? null;
       this.gameDialog = true;
     },
     close() {

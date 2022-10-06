@@ -120,6 +120,13 @@ export default {
       };
     }
   },
+  created() {
+    if (this.settings.stopAfter.type === 'time') {
+      window.timeout = setTimeout(() => {
+        this.$emit('done', this.game, { reason: 'time' });
+      }, this.settings.stopAfter.amount * 1000);
+    }
+  },
   methods: {
     answer(option: string) {
       if (this.answered) {
