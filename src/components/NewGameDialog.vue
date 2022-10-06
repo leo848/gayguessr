@@ -41,8 +41,13 @@
             </v-row>
           </v-col>
           <v-col cols="12">
-            <v-btn v-if="!limit" @click="settings.limit = 10; limit = true">Limit the amount of flags</v-btn> <br/>
-            <v-btn v-if="!timeLimit" @click="timeInput.amount = 1; timeLimit = true">Add time limit</v-btn>
+            <v-btn v-if="!limit" @click="settings.limit = 10; limit = true" block color="primary" size="large">
+              Limit flag amount
+            </v-btn>
+            <br/>
+            <v-btn v-if="!timeLimit" @click="timeInput.amount = 1; timeLimit = true" block color="primary" size="large">
+              Add time limit
+            </v-btn>
           </v-col>
           <v-col cols="12">
             You will play {{ flags() }} flags{{
@@ -56,6 +61,7 @@
     </v-card-text>
     <v-card-actions>
       <v-spacer></v-spacer>
+      <v-btn @click="restoreDefaultSettings">Reset</v-btn>
       <v-btn color="primary" @click="start">Start</v-btn>
     </v-card-actions>
   </v-card>
@@ -63,7 +69,7 @@
 
 <script lang="ts">
 import { flagPresets } from '../flags/flagPresets'
-import { loadGameSettings, changeGameSettings } from '../storage/storage'
+import { loadGameSettings, changeGameSettings, restoreDefaultSettings } from '../storage/storage'
 
 export default {
   name: "NewGameDialog",
@@ -99,6 +105,12 @@ export default {
         this.maxFlags(),
         this.settings.limit ?? Infinity,
       );
+    },
+    restoreDefaultSettings() {
+      restoreDefaultSettings();
+      this.settings = loadGameSettings();
+      this.limit = false;
+      this.timeLimit = false;
     }
   }
 }
