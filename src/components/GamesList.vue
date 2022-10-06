@@ -71,8 +71,9 @@ export default {
         month: "long",
         day: "numeric"
       });
-    }
-  }
+    },
+  },
+  emits: ["reload"]
 };
 </script>
 

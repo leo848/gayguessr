@@ -9,6 +9,19 @@
           :length="flagAmount"
           :colors="{0:'#bb0000',1:'#008800'}"
           />
+        <v-col cols="3"/>
+      </v-row>
+    </v-col>
+    <v-col cols="12" align="center">
+      <v-row>
+        <v-col cols="3" />
+        <MultipleProgressBar
+          v-if="timer != null"
+          :values="timeProgress"
+          :max-width="width"
+          :length="settings.timeLimit"
+          :colors="{0: '#ff9900', 1: '#000000'}"
+          />
         <v-col cols="3" />
       </v-row>
     </v-col>
@@ -85,8 +98,16 @@ export default {
     allFlags: Object.keys(flagPresets).sort(() => Math.random() - 0.5),
     flagIndex: 0,
     answered: false,
+    timer: null as null | number,
   }),
   computed: {
+    timeProgress() {
+      let arr = [];
+      for (let i = 0; i < this.settings.timeLimit; i++) {
+        arr.push(i < this.timer ? 0 : 1);
+      }
+      return arr;
+    },
     flagPreset() {
       return this.allFlags[this.flagIndex];
     },
@@ -120,18 +141,21 @@ export default {
   },
   created() {
     if (this.settings.timeLimit) {
+      const timeLimit = this.settings.timeLimit;
+      this.timer = timeLimit;
       setTimeout(() => {
-        this.game.timeEnded = new Date();
-        this.$emit('done', this.game, { reason: 'time' });
-      }, this.settings.timeLimit * 1000);
+        this.endGame({ reason: 'time' }); 
+      }, timeLimit * 1000);
+      setInterval(() => {
+        if (this.timer >> 0) this.timer--;
+      }, 1000)
     }
   },
   methods: {
     answer(option: string) {
       if (this.answered) {
         if (this.flagIndex >= this.flagAmount - 1) {
-          this.game.timeEnded = new Date();
-          this.$emit('done', this.game);
+          this.endGame();
           return;
         }
         this.answered = false;
@@ -148,6 +172,10 @@ export default {
       this.correctAnswers.push(correct ? 1 : 0);
       this.selectedOption = option;
       this.answered = true;
+    },
+    endGame(reason?:{reason: string}) {
+      this.game.timeEnded = new Date();
+      this.$emit('done', this.game, reason);
     },
     isCorrect(answer: string) {
       return answer === this.flagPreset;

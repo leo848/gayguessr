@@ -3,7 +3,12 @@
     <GameComponent :settings="gameSettings" class="mt-2" @done="showAlert" />
     <v-dialog v-model="gameDialog" max-width="500px" persistent>
       <v-card v-if="game">
-        <v-card-title>{{ reason === "time" ? "Time's up!" : "Well done!" }}</v-card-title>
+        <v-card-title>{{
+          !game.playedFlags.length ?
+            ":("
+            : reason === "time" ?
+              "Time's up!" : "Well done!"
+          }}</v-card-title>
         <v-card-text>
           <v-row>
             <v-col cols="2">
@@ -53,7 +58,7 @@ export default {
     },
     close() {
       this.gameDialog = false;
-      saveGame(this.game);
+      if (this.game.playedFlags.length) saveGame(this.game);
       this.game = null;
       this.$router.push(import.meta.env.BASE_URL);
     },

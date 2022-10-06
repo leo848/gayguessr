@@ -8,7 +8,7 @@
         <v-row>
           <v-col v-if="limit" cols="12">
             <v-row>
-              <v-col cols="6" sm="9">
+              <v-col cols="5">
                 Amount of flags:
                 <v-slider
                   required
@@ -19,27 +19,37 @@
                   :max="maxFlags()"
                   />
               </v-col>
-              <v-col cols="6" sm="3">
+              <v-col cols="5">
                 <v-text-field min="4" :max="maxFlags()" type="number" v-model="settings.limit" />
+              </v-col>
+              <v-col cols="2">
+                <v-btn icon="mdi-close" @click="limit = false; settings.limit = undefined" />
               </v-col>
             </v-row>
           </v-col>
           <v-col v-if="timeLimit" cols="12">
             <v-row>
-              <v-col cols="6">
-                <v-text-field type="number" v-model="timeInput.amount" />
+              <v-col cols="5">
+                <v-text-field label="Time limit" type="number" v-model="timeInput.amount" />
               </v-col>
-              <v-col cols="6">
+              <v-col cols="5">
                 <v-select :items="['seconds','minutes','hours']" v-model="timeInput.type" />
+              </v-col>
+              <v-col cols="2">
+                <v-btn icon="mdi-close" @click="timeLimit = false; settings.timeLimit = undefined" />
               </v-col>
             </v-row>
           </v-col>
           <v-col cols="12">
             <v-btn v-if="!limit" @click="settings.limit = 10; limit = true">Limit the amount of flags</v-btn> <br/>
-            <v-btn v-if="!timeLimit" @click="timeLimit = true">Add time limit</v-btn>
+            <v-btn v-if="!timeLimit" @click="timeInput.amount = 1; timeLimit = true">Add time limit</v-btn>
           </v-col>
           <v-col cols="12">
-            You will play {{ flags() }} flags.
+            You will play {{ flags() }} flags{{
+            settings.timeLimit ?
+              ` (${Math.round(settings.timeLimit / flags()*10)/10} seconds per flag)`
+              : '.' 
+            }}
           </v-col>
         </v-row>
       </v-container>
@@ -59,18 +69,22 @@ export default {
   name: "NewGameDialog",
   data: () => ({
     settings: loadGameSettings(),
-    timeInput: { type: 'minutes' as 'minutes' | 'seconds' | 'hours', amount: 1 },
+    timeInput: { type: 'minutes' as 'minutes' | 'seconds' | 'hours', amount: 2 },
     limit: false,
     timeLimit: false,
   }),
+  created() {
+    if (this.settings.limit) this.limit = true;
+    if (this.settings.timeLimit) this.timeLimit = true;
+  },
   watch: {
-    timeInput(_old, newTimeInput) {
+    timeInput: { deep: true, handler: function (_old, newTimeInput) {
       let amount = newTimeInput.amount;
       if (newTimeInput.type === 'seconds') amount *= 1;
       else if (newTimeInput.type === 'minutes') amount *= 60;
       else if (newTimeInput.type === 'hours') amount *= 3600;
       this.settings.timeLimit = amount;
-    },
+    }},
   },
   methods: {
     start() {
