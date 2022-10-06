@@ -43,7 +43,7 @@
 import Flag from '../components/Flag.vue';
 import IdentityInfo from '../components/IdentityInfo.vue';
 import { flagPresets } from '../flags/flagPresets';
-import { seededRandom } from '../utils/random';
+import { seededRandom, shuffle } from '../utils/random';
 
 export default {
   name: "AllFlags",
@@ -73,7 +73,9 @@ export default {
   },
   created() {
     const random = seededRandom(new Date().toUTCString());
-    this.flags = this.flags.sort(() => random() - 0.5);
+    this.flags = shuffle(this.flags, random);
+
+    this.search = this.$route.query.search as string || "";
   },
   methods: {
     test(text: string) {

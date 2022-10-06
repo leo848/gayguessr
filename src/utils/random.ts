@@ -29,3 +29,13 @@ function mulberry32(a: number): () => number {
 export function seededRandom(str: string): () => number {
 	return mulberry32(cyrb128(str)[0]);
 }
+
+export function shuffle<T>(arr: T[], random: () => number): T[] {
+    let i = arr.length;
+    const array = [...arr];
+    while (i--) {
+        const j = Math.floor(random() * (i + 1));
+        [array[i], array[j]] = [array[j], array[i]];
+    }
+    return array;
+}
