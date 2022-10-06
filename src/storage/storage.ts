@@ -1,5 +1,5 @@
-import { defaultSettings } from './defaults';
-import type { Game, IntoGame, Settings } from './types';
+import { defaultSettings, defaultGameSettings } from './defaults';
+import type { Game, IntoGame, Settings, GameSettings } from './types';
 
 const GAMES_KEY = 'games';
 
@@ -48,5 +48,25 @@ export function changeSettings(newSettings: Partial<Settings>): void {
 }
 
 export function restoreDefaultSettings(): void {
-	localStorage.setItem('settings', JSON.stringify(defaultSettings));
+	localStorage.setItem('settings', '{}');
 }
+
+export function loadGameSettings(): GameSettings {
+	return {
+		...defaultGameSettings,
+		...JSON.parse(localStorage.getItem('gameSettings') || '{}')
+	};
+}
+
+export function changeGameSettings(newSettings: Partial<GameSettings>): void {
+	const settings = loadGameSettings();
+	localStorage.setItem('gameSettings', JSON.stringify({
+		...settings,
+		...newSettings
+	}));
+}
+
+export function restoreDefaultGameSettings(): void {
+	localStorage.setItem('gameSettings', '{}');
+}
+
