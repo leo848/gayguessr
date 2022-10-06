@@ -146,9 +146,15 @@ export default {
       setTimeout(() => {
         this.endGame({ reason: 'time' }); 
       }, timeLimit * 1000);
+      let date = new Date();
       setInterval(() => {
-        if (this.timer >> 0) this.timer--;
-      }, 1000)
+        let delta = +new Date()-+date;
+        if (this.timer > 0 && delta > 1000) {
+          delta %= 1000;
+          date = new Date(+new Date());
+          this.timer--;
+        }
+      }, 100)
     }
   },
   methods: {
