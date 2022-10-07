@@ -48,7 +48,7 @@
           </span>
         </p>
       </v-col>
-      <v-col v-for="(name, index) in flags" :key="name" v-show="test(name)" cols="12" sm="6" lg="4">
+      <v-col v-for="name in flags" :key="name" v-show="test(name)" cols="12" sm="6" lg="4">
         <IdentityInfo :id="name" always-show>
         <v-card>
           <v-card-title v-html="highlight(name, search)" />
@@ -80,6 +80,7 @@ import IdentityInfo from '../components/IdentityInfo.vue';
 import { flagPresets } from '../flags/flagPresets';
 import { seededRandom, shuffle } from '../utils/random';
 import { levensthein } from '../utils/string';
+import { unique } from '../utils/array';
 
 export default {
   name: "AllFlags",
@@ -97,6 +98,20 @@ export default {
       {
         name: "Random",
         exec: (flags: string[]) => shuffle(flags, seededRandom(new Date().toUTCString()))
+      },
+      {
+        name: "Length of name",
+        exec: (flags: string[]) => flags.sort((a, b) => a.length - b.length)
+      },
+      {
+        name: "Amount of stripes",
+        exec: (flags: string[]) =>
+          flags.sort((a, b) => flagPresets[a].colors().length - flagPresets[b].colors().length)
+      },
+      {
+        name: "Amount of colors",
+        exec: (flags: string[]) =>
+        flags.sort((a, b) => unique(flagPresets[a].colors()).length - unique(flagPresets[b].colors()).length)
       },
     ]
   }),
@@ -128,9 +143,6 @@ export default {
     }
   },
   created() {
-    // const random = seededRandom(new Date().toUTCString());
-    // this.flags = shuffle(this.flags, random);
-
     this.flags = this.flags.sort();
 
     requestAnimationFrame(() => {
