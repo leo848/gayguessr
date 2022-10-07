@@ -146,12 +146,39 @@ export const flagPresets = {
 		"#9832ff",
 		"#00b8e7",
 	]),
+	agenderfluid: Flag.horizontal([
+		"#000000",
+		"#bec4c6",
+		"#ffffff",
+		Flag.vertical([
+			"#fe75a1",
+			"#ffffff",
+			"#be16d9",
+			"#000000",
+			"#333ebe",
+		]),
+		"#ffffff",
+		"#bec4c6",
+		"#000000",
+	]),
 	genderfluid: Flag.horizontal([
 		"#ff76a4",
 		"#ffffff",
 		"#c011d7",
 		"#000000",
 		"#2f3cbe",
+	]),
+	genderqueer: Flag.horizontal([
+		"#c260db",
+		"#ffffff",
+		"#2f8e29",
+	]),
+	aporagender: Flag.horizontal([
+		"#f37cca",
+		"#e1bdf0",
+		"#fff982",
+		"#e1bdf0",
+		"#7bbbdd",
 	]),
 	demisexual: Flag.horizontalWithRatio([
 		["#ffffff", 5],
@@ -342,4 +369,11 @@ export const flagPresets = {
 		"#00e973",
 		"#0081f6",
 	]),
+	hijra: Flag.horizontalWithRatio([
+		["#ffcce6", 3],
+		["#ffffff", 1],
+		["#c20000", 1],
+		["#ffffff", 1],
+		["#b9e0fc", 3],
+	])
 }
