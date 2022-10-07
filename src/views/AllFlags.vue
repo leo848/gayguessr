@@ -23,21 +23,21 @@
         </v-tooltip>
         <v-menu>
           <template v-slot:activator="{ props }">
-            <v-btn icon="mdi-sort" class="mt-4 ml-4" v-bind="props" />
+            <v-btn :icon="lastChosenAlgorithm?.icon ?? 'mdi-sort'" class="mt-4 ml-4" v-bind="props" />
           </template>
           <v-list>
             <v-list-subheader>Sort by</v-list-subheader>
             <v-list-item
-              v-for="(algorithm, index) in sortAlgorithms"
+              v-for="algorithm in sortAlgorithms"
               :key="algorithm.name"
-              :variant="index === lastChosenAlgorithm ? 'tonal' : undefined"
-              @click="flags = algorithm.exec(flags); lastChosenAlgorithm = index"
+              :variant="algorithm.name === lastChosenAlgorithm.name ? 'tonal' : undefined"
+              @click="flags = algorithm.exec(flags); lastChosenAlgorithm = algorithm"
               >
               <v-list-item-title>{{ algorithm.name }}</v-list-item-title>
             </v-list-item>
           </v-list>
         </v-menu>
-        <v-tooltip bottom v-if="!lastChosenAlgorithm || !sortAlgorithms[lastChosenAlgorithm].hideReverse">
+        <v-tooltip bottom v-if="!lastChosenAlgorithm || !lastChosenAlgorithm.hideReverse">
           <template v-slot:activator="{ props }">
             <v-btn :icon="'mdi-sort-alphabetical-' + (reverse ? 'descending' : 'ascending')" class="mt-4 ml-4" v-bind="props" @click="reverse = !reverse; flags = flags.reverse()" />
           </template>
@@ -103,23 +103,28 @@ export default {
       {
         name: "Alphabetically",
         exec: (flags: string[]) => flags.sort(),
+        icon: "mdi-alphabetical-variant",
       },
       {
         name: "Random",
         exec: (flags: string[]) => shuffle(flags, seededRandom(new Date().toUTCString())),
+        icon: "mdi-dice-5",
         hideReverse: true,
       },
       {
         name: "Length of name",
+        icon: "mdi-arrow-split-vertical",
         exec: (flags: string[]) => flags.sort((a, b) => a.length - b.length)
       },
       {
         name: "Amount of stripes",
+        icon: "mdi-texture-box",
         exec: (flags: string[]) =>
           flags.sort((a, b) => flagPresets[a].colors().length - flagPresets[b].colors().length)
       },
       {
         name: "Amount of colors",
+        icon: "mdi-palette",
         exec: (flags: string[]) =>
         flags.sort((a, b) => unique(flagPresets[a].colors()).length - unique(flagPresets[b].colors()).length)
       },
