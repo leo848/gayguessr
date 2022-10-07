@@ -21,6 +21,21 @@
           </template>
           <span>{{ regex ? "Use text mode" : "Use RegExp mode" }}</span>
         </v-tooltip>
+        <v-menu>
+          <template v-slot:activator="{ props }">
+            <v-btn icon="mdi-sort-alphabetical-ascending" class="mt-4 ml-4" v-bind="props" />
+          </template>
+          <v-list>
+            <v-list-subheader>Sort by</v-list-subheader>
+            <v-list-item
+              v-for="algorithm in sortAlgorithms"
+              :key="algorithm.name"
+              @click="flags = algorithm.exec(flags)"
+              >
+              <v-list-item-title>{{ algorithm.name }}</v-list-item-title>
+            </v-list-item>
+          </v-list>
+        </v-menu>
       </v-col>
       <v-col cols="12">
         <p class="text-h5" v-if="flags.filter(test).length > 0">{{ search ? `${ flags.filter(test).length } flags found` : `Showing ${ flags.filter(test).length } flags` }}
@@ -33,7 +48,7 @@
           </span>
         </p>
       </v-col>
-      <v-col v-for="(name, index) in flags" :key="name + index" v-show="test(name)" cols="12" sm="6" lg="4">
+      <v-col v-for="(name, index) in flags" :key="name" v-show="test(name)" cols="12" sm="6" lg="4">
         <IdentityInfo :id="name" always-show>
         <v-card>
           <v-card-title v-html="highlight(name, search)" />
@@ -63,6 +78,7 @@
 import Flag from '../components/Flag.vue';
 import IdentityInfo from '../components/IdentityInfo.vue';
 import { flagPresets } from '../flags/flagPresets';
+import { seededRandom, shuffle } from '../utils/random';
 import { levensthein } from '../utils/string';
 
 export default {
@@ -73,6 +89,16 @@ export default {
     search: "",
     error: null as string | null,
     regex: false,
+    sortAlgorithms: [
+      {
+        name: "Alphabetically",
+        exec: (flags: string[]) => flags.sort(),
+      },
+      {
+        name: "Random",
+        exec: (flags: string[]) => shuffle(flags, seededRandom(new Date().toUTCString()))
+      },
+    ]
   }),
   computed: {
     searchRegex() {
