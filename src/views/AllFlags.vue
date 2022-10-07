@@ -1,7 +1,7 @@
 <template>
   <v-container>
     <v-row>
-      <v-col cols="10">
+      <v-col cols="8">
         <v-text-field
           class="mt-4"
           v-model="search"
@@ -14,28 +14,35 @@
           hide-details
           />
       </v-col>
-      <v-col cols="2">
+      <v-col cols="4">
         <v-tooltip bottom>
           <template v-slot:activator="{ props }">
-            <v-btn :icon="regex ? 'mdi-cursor-text' : 'mdi-regex'" class="mt-4" v-bind="props" @click="regex = !regex" />
+            <v-btn :icon="regex ? 'mdi-regex' : 'mdi-cursor-text'" class="mt-4" v-bind="props" @click="regex = !regex" />
           </template>
-          <span>{{ regex ? "Use text mode" : "Use RegExp mode" }}</span>
+          <span>{{ regex ? "RegExp mode (kinda buggy)" : "Text mode" }}</span>
         </v-tooltip>
         <v-menu>
           <template v-slot:activator="{ props }">
-            <v-btn icon="mdi-sort-alphabetical-ascending" class="mt-4 ml-4" v-bind="props" />
+            <v-btn icon="mdi-sort" class="mt-4 ml-4" v-bind="props" />
           </template>
           <v-list>
             <v-list-subheader>Sort by</v-list-subheader>
             <v-list-item
-              v-for="algorithm in sortAlgorithms"
+              v-for="(algorithm, index) in sortAlgorithms"
               :key="algorithm.name"
-              @click="flags = algorithm.exec(flags)"
+              :variant="index === lastChosenAlgorithm ? 'tonal' : undefined"
+              @click="flags = algorithm.exec(flags); lastChosenAlgorithm = index"
               >
               <v-list-item-title>{{ algorithm.name }}</v-list-item-title>
             </v-list-item>
           </v-list>
         </v-menu>
+        <v-tooltip bottom v-if="!lastChosenAlgorithm || !sortAlgorithms[lastChosenAlgorithm].hideReverse">
+          <template v-slot:activator="{ props }">
+            <v-btn :icon="'mdi-sort-alphabetical-' + (reverse ? 'descending' : 'ascending')" class="mt-4 ml-4" v-bind="props" @click="reverse = !reverse; flags = flags.reverse()" />
+          </template>
+          <span>{{ reverse ? "Ascending" : "Descending" }}</span>
+        </v-tooltip>
       </v-col>
       <v-col cols="12">
         <p class="text-h5" v-if="flags.filter(test).length > 0">{{ search ? `${ flags.filter(test).length } flags found` : `Showing ${ flags.filter(test).length } flags` }}
@@ -90,6 +97,8 @@ export default {
     search: "",
     error: null as string | null,
     regex: false,
+    reverse: false,
+    lastChosenAlgorithm: 0,
     sortAlgorithms: [
       {
         name: "Alphabetically",
@@ -97,7 +106,8 @@ export default {
       },
       {
         name: "Random",
-        exec: (flags: string[]) => shuffle(flags, seededRandom(new Date().toUTCString()))
+        exec: (flags: string[]) => shuffle(flags, seededRandom(new Date().toUTCString())),
+        hideReverse: true,
       },
       {
         name: "Length of name",
