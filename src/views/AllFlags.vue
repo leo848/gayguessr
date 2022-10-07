@@ -92,7 +92,13 @@ export default {
 
     this.flags = this.flags.sort();
 
-    this.search = this.$route.query.search as string || "";
+    console.log(this.$route);
+    this.search = this.$route.query.query as string || "";
+  },
+  watch: {
+    search() {
+      this.$router.replace({ query: { query: this.search } });
+    },
   },
   methods: {
     test(text: string) {
