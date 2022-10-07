@@ -45,7 +45,14 @@
         </v-tooltip>
       </v-col>
       <v-col cols="12">
-        <p class="text-h5" v-if="flags.filter(test).length > 0">{{ search ? `${ flags.filter(test).length } flags found` : `Showing ${ flags.filter(test).length } flags` }}
+        <p class="text-h5" v-if="flags.filter(test).length > 0">
+          <span v-if="!search">Showing&nbsp;</span>
+          <v-scale-transition leave-absolute>
+            <b :key="flags.filter(test).length"> {{ flags.filter(test).length }}&nbsp;</b>
+          </v-scale-transition>
+          <span>
+            {{ (flags.filter(test).length == 1 ? "flag" : "flags") + (search ? " found" : "") }}&nbsp;
+          </span>
           <span v-if="search" class="text-disabled">{{ regex ? `matching ${ search }` : `containing ${ search }` }}</span>
         </p>
         <p class="text-h5" v-else>
