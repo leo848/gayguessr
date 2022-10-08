@@ -56,7 +56,7 @@
           <span>
             {{ (filteredFlags.length == 1 ? "flag" : "flags") + (search ? " found" : "") }}&nbsp;
           </span>
-          <span v-if="search" class="text-disabled">{{ regex ? `matching ${ searchRegex }` : `containing ${ search }` }}</span>
+          <span v-if="search" class="text-disabled">{{ regex ? `matching ${ searchRegex }` : `containing ${ improvedSearch }` }}</span>
         </p>
         <p class="text-h5" v-else>
           No flags matched your search.<br/>
@@ -141,6 +141,9 @@ export default {
     ]
   }),
   computed: {
+    improvedSearch() {
+      return this.search;
+    },
     searchRegex() {
       const search = this.search.trim();
       const { regex } = this;
