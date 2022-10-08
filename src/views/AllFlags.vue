@@ -157,10 +157,13 @@ export default {
     suggestion(): string | null {
       const { search, flags } = this;
       const sortedByLev = flags
-        .map((name: string) => ({ name, lev: levensthein(name.toLowerCase(), search.toLowerCase()) }))
+        .map((name: string) => ({
+          name,
+          lev: levensthein(name.toLowerCase(), search.toLowerCase()) / search.length,
+        }))
         .sort((a: { lev: number }, b: { lev: number }) => a.lev - b.lev);
 
-      if (sortedByLev[0].lev > 3) return null;
+      if (sortedByLev[0].lev > .75) return null;
       return sortedByLev[0].name;
     }
   },
