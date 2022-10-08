@@ -142,7 +142,52 @@ export default {
   }),
   computed: {
     improvedSearch() {
-      return this.search;
+      const { search, filteredFlags: flags } = this;
+
+      if (flags.length <= 1) return search;
+
+      let [expandBack, expandForwards] = [true, true];
+
+      let improved = search;
+
+      while (expandBack || expandForwards) {
+        for (const name of flags) {
+          if (name.startsWith(improved)) expandBack = false;
+          if (name.endsWith(improved)) expandForwards = false;
+        }
+
+        if (!expandBack && !expandForwards) return improved;
+
+        let charB: string | null = null;
+        if (expandBack) {
+          for (const name of flags) {
+            const index = name.search(improved);
+            let thisChar = name.charAt(index - 1);
+            if (charB && thisChar != charB) {
+              expandBack = false;
+              break;
+            }
+            charB = thisChar;
+          }
+        }
+        if (expandBack) improved = charB + improved;
+
+        let charF: string | null = null;
+        if (expandForwards) {
+          for (const name of flags) {
+            const index = name.search(improved) + improved.length;
+            let thisChar = name.charAt(index);
+            if (charF && thisChar !== charF) {
+              expandForwards = false;
+              break;
+            }
+            charF = thisChar;
+          }
+        }
+        debugger;
+        if (expandForwards) improved += charF;
+      }
+      return improved;
     },
     searchRegex() {
       const search = this.search.trim();
