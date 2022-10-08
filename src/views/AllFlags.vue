@@ -21,7 +21,7 @@
           </template>
           <span>{{ regex ? "RegExp mode (kinda buggy)" : "Text mode" }}</span>
         </v-tooltip>
-        <v-menu>
+        <v-menu v-if="filteredFlags.length > 1">
           <template v-slot:activator="{ props }">
             <v-btn :icon="lastChosenAlgorithm?.icon ?? 'mdi-sort'" class="mt-4 ml-4" v-bind="props" />
           </template>
@@ -33,11 +33,14 @@
               :variant="algorithm.name === lastChosenAlgorithm.name ? 'tonal' : undefined"
               @click="flags = algorithm.exec(flags); lastChosenAlgorithm = algorithm"
               >
+              <template v-slot:prepend>
+                <v-icon>{{ algorithm.icon }}</v-icon>
+              </template>
               <v-list-item-title>{{ algorithm.name }}</v-list-item-title>
             </v-list-item>
           </v-list>
         </v-menu>
-        <v-tooltip bottom v-if="!lastChosenAlgorithm || !lastChosenAlgorithm.hideReverse">
+        <v-tooltip bottom v-if="filteredFlags.length > 1 && (!lastChosenAlgorithm || !lastChosenAlgorithm.hideReverse)">
           <template v-slot:activator="{ props }">
             <v-btn :icon="'mdi-sort-alphabetical-' + (reverse ? 'descending' : 'ascending')" class="mt-4 ml-4" v-bind="props" @click="reverse = !reverse; flags = flags.reverse()" />
           </template>
@@ -45,13 +48,13 @@
         </v-tooltip>
       </v-col>
       <v-col cols="12">
-        <p class="text-h5" v-if="flags.filter(test).length > 0">
+        <p class="text-h5" v-if="filteredFlags.length > 0">
           <span v-if="!search">Showing&nbsp;</span>
           <v-scale-transition leave-absolute>
-            <b :key="flags.filter(test).length"> {{ flags.filter(test).length }}&nbsp;</b>
+            <b :key="filteredFlags.length"> {{ filteredFlags.length }}&nbsp;</b>
           </v-scale-transition>
           <span>
-            {{ (flags.filter(test).length == 1 ? "flag" : "flags") + (search ? " found" : "") }}&nbsp;
+            {{ (filteredFlags.length == 1 ? "flag" : "flags") + (search ? " found" : "") }}&nbsp;
           </span>
           <span v-if="search" class="text-disabled">{{ regex ? `matching ${ searchRegex }` : `containing ${ search }` }}</span>
         </p>
@@ -72,7 +75,7 @@
           </v-card>
         </IdentityInfo>
       </v-col>
-      <v-col cols="12" sm="6" lg="4" v-if="flags.filter(test).length === 0">
+      <v-col cols="12" sm="6" lg="4" v-if="filteredFlags.length === 0">
         <v-card color="error">
           <v-card-text>
             <p class="text-h3 mb-4">No flags found</p>
@@ -165,7 +168,10 @@ export default {
 
       if (sortedByLev[0].lev > .75) return null;
       return sortedByLev[0].name;
-    }
+    },
+    filteredFlags() {
+      return this.flags.filter(this.test);
+    },
   },
   created() {
     this.flags = this.flags.sort();
