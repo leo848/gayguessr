@@ -185,7 +185,6 @@ export default {
             charF = thisChar;
           }
         }
-        debugger;
         if (expandForwards) improved += charF;
       }
       return improved;
