@@ -41,7 +41,7 @@
           <template v-slot:activator="{ props }">
             <v-btn :icon="'mdi-sort-alphabetical-' + (reverse ? 'descending' : 'ascending')" class="mt-4 ml-4" v-bind="props" @click="reverse = !reverse; flags = flags.reverse()" />
           </template>
-          <span>{{ reverse ? "Ascending" : "Descending" }}</span>
+          <span>{{ reverse ? "Descending" : "Ascending" }}</span>
         </v-tooltip>
       </v-col>
       <v-col cols="12">
@@ -53,7 +53,7 @@
           <span>
             {{ (flags.filter(test).length == 1 ? "flag" : "flags") + (search ? " found" : "") }}&nbsp;
           </span>
-          <span v-if="search" class="text-disabled">{{ regex ? `matching ${ search }` : `containing ${ search }` }}</span>
+          <span v-if="search" class="text-disabled">{{ regex ? `matching ${ searchRegex }` : `containing ${ search }` }}</span>
         </p>
         <p class="text-h5" v-else>
           No flags matched your search.<br/>
