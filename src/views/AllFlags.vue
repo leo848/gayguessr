@@ -5,6 +5,7 @@
         <v-text-field
           class="mt-4"
           v-model="search"
+          @blur="search = improvedSearch"
           :error="error !== null"
           :error-messages="error || undefined"
           append-icon="mdi-magnify"
