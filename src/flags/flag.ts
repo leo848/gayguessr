@@ -5,6 +5,8 @@ type Stripe = {
 	size?: number;
 }
 
+type DimensionContext = { x: number, y: number, width: number, height: number };
+
 export abstract class Flag {
 	public static defaultFlag(): Flag {
 		return new DefaultFlag();
@@ -65,6 +67,10 @@ export abstract class Flag {
 
 	public overlay(flag: Flag): Flag {
 		return new OverlayFlag(this, flag);
+	}
+
+	public context(context: (ctx: DimensionContext) => Partial<DimensionContext>): Flag {
+		return new ContextFlag(this, context);
 	}
 }
 
@@ -223,6 +229,33 @@ class OverlayFlag extends Flag {
 
 	public colors(): string[] {
 		return this.flags.map(f => f.colors()).reduce((a, b) => a.concat(b));
+	}
+}
+
+class ContextFlag extends Flag {
+	flag: Flag;
+	dimensionContext: (context: DimensionContext) => Partial<DimensionContext>;
+
+	constructor(flag: Flag, dimensionContext: (context: DimensionContext) => Partial<DimensionContext>) {
+		super()
+		this.flag = flag;
+		this.dimensionContext = dimensionContext;
+	}
+
+	public paint(
+		ctx: CanvasRenderingContext2D,
+		x: number = 0,
+		y: number = 0,
+		width: number = ctx.canvas.width - x,
+		height: number = ctx.canvas.height - y,
+	): void {
+		const oldContext = { x, y, width, height };
+		const context = { ...oldContext, ...this.dimensionContext(oldContext) }; 
+		this.flag.paint(ctx, context.x, context.y, context.width, context.height);
+	}
+
+	public colors(): string[] {
+		return this.flag.colors();
 	}
 }
 
