@@ -184,12 +184,12 @@ export const flagPresets = {
 		["#ffffff", 5],
 		["#6e0070", 2],
 		["#d2d2d2", 5],
-	]).overlay(Flag.triangleOverlay("#000000", 143/400)),
+	]).overlay(Flag.triangleOverlay("#000000", { type: "fromLeft", ratio: 143/400 })),
 	demiromantic: Flag.horizontalWithRatio([
 		["#ffffff", 5],
 		["#339933", 2],
 		["#d2d2d2", 5],
-	]).overlay(Flag.triangleOverlay("#000000", 143/400)),
+	]).overlay(Flag.triangleOverlay("#000000", { type: "fromLeft", ratio: 143/400 })),
 	demigirl: Flag.horizontal([
 		"#7f7f7f",
 		"#c4c4c4",

@@ -37,8 +37,8 @@ export abstract class Flag {
 		return new VerticalFlag(stripes);
 	}
 
-	public static triangleOverlay(color: string, ratio: number): Flag {
-		return new TriangleOverlayFlag(parseColor(color), ratio);
+	public static triangleOverlay(color: string, type: TriangleType): Flag {
+		return new TriangleOverlayFlag(parseColor(color), type);
 	}
 
 	public static empty(): Flag {
@@ -155,14 +155,22 @@ class VerticalFlag extends Flag {
 	}
 }
 
+export type TriangleType = {
+	type: "fromLeft",
+	ratio ?: number,
+} | {
+	type: "fromTop",
+	ratio ?: number,
+};
+
 class TriangleOverlayFlag extends Flag {
 	color: Color;
-	ratio: number;
+	type: TriangleType;
 
-	constructor(color: Color, ratio: number) {
+	constructor(color: Color, type: TriangleType) {
 		super()
 		this.color = color;
-		this.ratio = ratio;
+		this.type = type;
 	}
 
 	public paint(
@@ -172,12 +180,22 @@ class TriangleOverlayFlag extends Flag {
 		width: number = ctx.canvas.width - x,
 		height: number = ctx.canvas.height - y,
 	): void {
-		let absoluteRatio = this.ratio * width;
+		let coords: [[number, number], [number, number], [number, number]];
+		switch (this.type.type) {
+			case "fromLeft":
+				coords = [[x, y], [x + width * this.type.ratio, y + height / 2], [x, y + height]];
+				break;
+			case "fromTop":
+				coords = [[x, y], [x + width / 2, y + height * this.type.ratio], [x + width, y]];
+				break;
+			default:
+				throw new Error("Unreachable");
+		};
 		ctx.fillStyle = colorToString(this.color);
 		ctx.beginPath();
-		ctx.moveTo(x, y);
-		ctx.lineTo(x + absoluteRatio, y + height / 2);
-		ctx.lineTo(x, y + height);
+		ctx.moveTo(...coords[0]);
+		ctx.lineTo(...coords[1]);
+		ctx.lineTo(...coords[2]);
 		ctx.fill();
 	}
 
