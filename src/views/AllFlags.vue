@@ -24,7 +24,7 @@
         </v-tooltip>
         <v-menu v-if="filteredFlags.length > 1">
           <template v-slot:activator="{ props }">
-            <v-btn :icon="lastChosenAlgorithm?.icon ?? 'mdi-sort'" class="mt-4 ml-4" v-bind="props" />
+            <v-btn :icon="lastChosenAlgorithm?.icon ?? 'mdi-sort-variant'" class="mt-4 ml-4" v-bind="props" />
           </template>
           <v-list>
             <v-list-subheader>Sort by</v-list-subheader>
@@ -41,7 +41,10 @@
             </v-list-item>
           </v-list>
         </v-menu>
-        <v-tooltip bottom v-if="filteredFlags.length > 1 && (!lastChosenAlgorithm || !lastChosenAlgorithm.hideReverse)">
+        <v-tooltip
+          bottom
+          v-if="filteredFlags.length > 1 && lastChosenAlgorithm && lastChosenAlgorithm.hideReverse"
+          >
           <template v-slot:activator="{ props }">
             <v-btn :icon="'mdi-sort-alphabetical-' + (reverse ? 'descending' : 'ascending')" class="mt-4 ml-4" v-bind="props" @click="reverse = !reverse; flags = flags.reverse()" />
           </template>
