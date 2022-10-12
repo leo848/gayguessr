@@ -374,7 +374,7 @@ export const flagPresets = {
 	).overlay(
 		Flag.triangleOverlay("#ffffff", { type: "fromTop", ratio: 1 })
 			.context(ctx => ({
-				x: (ctx.height * 0.25) * (ctx.height / ctx.width),
+				x: (ctx.height * 0.25) * (ctx.height / ctx.width) - 1,
 				y: ctx.height * 0.25,
 				height: ctx.height * 0.75,
 				width: ctx.width * 0.75
@@ -382,7 +382,7 @@ export const flagPresets = {
 	).overlay(
 		Flag.triangleOverlay("#a3a3a3", { type: "fromTop", ratio: 1 })
 			.context(ctx => ({
-				x: (ctx.height * 0.5) * (ctx.height / ctx.width),
+				x: (ctx.height * 0.5) * (ctx.height / ctx.width) - 2,
 				y: ctx.height * 0.5,
 				height: ctx.height * 0.5,
 				width: ctx.width * 0.5
@@ -390,7 +390,7 @@ export const flagPresets = {
 	).overlay(
 		Flag.triangleOverlay("#000000", { type: "fromTop", ratio: 1 })
 			.context(ctx => ({
-				x: (ctx.height * 0.75) * (ctx.height / ctx.width),
+				x: (ctx.height * 0.75) * (ctx.height / ctx.width) - 3,
 				y: ctx.height * 0.75,
 				height: ctx.height * 0.25,
 				width: ctx.width * 0.25
