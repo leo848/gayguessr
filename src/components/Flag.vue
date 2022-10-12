@@ -1,5 +1,5 @@
 <template>
-  <canvas ref="canvas" class="rounded-xl"></canvas>
+  <canvas ref="canvas" class="canvas rounded-xl"></canvas>
 </template>
 
 <script lang="ts">
@@ -78,3 +78,9 @@ export default {
   }
 }
 </script>
+
+<style scoped>
+.canvas {
+  background: #ffffff;
+}
+</style>

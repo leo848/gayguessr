@@ -184,12 +184,12 @@ export const flagPresets = {
 		["#ffffff", 5],
 		["#6e0070", 2],
 		["#d2d2d2", 5],
-	]).overlay(Flag.triangleOverlay("#000000", 143/400)),
+	]).overlay(Flag.triangleOverlay("#000000", { type: "fromLeft", ratio: 143/400 })),
 	demiromantic: Flag.horizontalWithRatio([
 		["#ffffff", 5],
 		["#339933", 2],
 		["#d2d2d2", 5],
-	]).overlay(Flag.triangleOverlay("#000000", 143/400)),
+	]).overlay(Flag.triangleOverlay("#000000", { type: "fromLeft", ratio: 143/400 })),
 	demigirl: Flag.horizontal([
 		"#7f7f7f",
 		"#c4c4c4",
@@ -334,6 +334,24 @@ export const flagPresets = {
 		"#69abe5",
 		"#5276d4",
 	]),
+	mingender: Flag.horizontalWithRatio([
+		["#c0f2a2", 1],
+		["#a3f1be", 1],
+		["#7de7ec", 1],
+		["#31a7ee", 2],
+		["#8385de", 1],
+		["#ae82df", 1],
+		["#d17ee2", 1],
+	]),
+	fingender: Flag.horizontalWithRatio([
+		["#f9e3a7", 1],
+		["#fabba7", 1],
+		["#f29eba", 1],
+		["#ef51ab", 2],
+		["#d07ee2", 1],
+		["#ae82de", 1],
+		["#8385df", 1],
+	]),
 	abrosexual: Flag.horizontal([
 		"#57d797",
 		"#a8ebcd",
@@ -346,6 +364,38 @@ export const flagPresets = {
 		"#603524",
 		"#b798dd",
 	]),
+	aegosexual: Flag.horizontal([
+		"#000000",
+		"#a3a3a3",
+		"#ffffff",
+		"#7f007f",
+	]).overlay(
+		Flag.triangleOverlay("#7f007f", { type: "fromTop", ratio: 1 })
+	).overlay(
+		Flag.triangleOverlay("#ffffff", { type: "fromTop", ratio: 1 })
+			.context(ctx => ({
+				x: (ctx.height * 0.25) * (ctx.height / ctx.width) - 1,
+				y: ctx.height * 0.25,
+				height: ctx.height * 0.75,
+				width: ctx.width * 0.75
+			}))
+	).overlay(
+		Flag.triangleOverlay("#a3a3a3", { type: "fromTop", ratio: 1 })
+			.context(ctx => ({
+				x: (ctx.height * 0.5) * (ctx.height / ctx.width) - 2,
+				y: ctx.height * 0.5,
+				height: ctx.height * 0.5,
+				width: ctx.width * 0.5
+			}))
+	).overlay(
+		Flag.triangleOverlay("#000000", { type: "fromTop", ratio: 1 })
+			.context(ctx => ({
+				x: (ctx.height * 0.75) * (ctx.height / ctx.width) - 3,
+				y: ctx.height * 0.75,
+				height: ctx.height * 0.25,
+				width: ctx.width * 0.25
+			}))
+	),
 	ceterosexual: Flag.horizontal([
 		"#fcf980",
 		"#169c47",

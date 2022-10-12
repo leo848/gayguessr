@@ -5,6 +5,8 @@ type Stripe = {
 	size?: number;
 }
 
+type DimensionContext = { x: number, y: number, width: number, height: number };
+
 export abstract class Flag {
 	public static defaultFlag(): Flag {
 		return new DefaultFlag();
@@ -37,8 +39,8 @@ export abstract class Flag {
 		return new VerticalFlag(stripes);
 	}
 
-	public static triangleOverlay(color: string, ratio: number): Flag {
-		return new TriangleOverlayFlag(parseColor(color), ratio);
+	public static triangleOverlay(color: string, type: TriangleType): Flag {
+		return new TriangleOverlayFlag(parseColor(color), type);
 	}
 
 	public static empty(): Flag {
@@ -65,6 +67,10 @@ export abstract class Flag {
 
 	public overlay(flag: Flag): Flag {
 		return new OverlayFlag(this, flag);
+	}
+
+	public context(context: (ctx: DimensionContext) => Partial<DimensionContext>): Flag {
+		return new ContextFlag(this, context);
 	}
 }
 
@@ -155,14 +161,22 @@ class VerticalFlag extends Flag {
 	}
 }
 
+export type TriangleType = {
+	type: "fromLeft",
+	ratio ?: number,
+} | {
+	type: "fromTop",
+	ratio ?: number,
+};
+
 class TriangleOverlayFlag extends Flag {
 	color: Color;
-	ratio: number;
+	type: TriangleType;
 
-	constructor(color: Color, ratio: number) {
+	constructor(color: Color, type: TriangleType) {
 		super()
 		this.color = color;
-		this.ratio = ratio;
+		this.type = type;
 	}
 
 	public paint(
@@ -172,12 +186,22 @@ class TriangleOverlayFlag extends Flag {
 		width: number = ctx.canvas.width - x,
 		height: number = ctx.canvas.height - y,
 	): void {
-		let absoluteRatio = this.ratio * width;
+		let coords: [[number, number], [number, number], [number, number]];
+		switch (this.type.type) {
+			case "fromLeft":
+				coords = [[x, y], [x + width * this.type.ratio, y + height / 2], [x, y + height]];
+				break;
+			case "fromTop":
+				coords = [[x, y], [x + width / 2, y + height * this.type.ratio], [x + width, y]];
+				break;
+			default:
+				throw new Error("Unreachable");
+		};
 		ctx.fillStyle = colorToString(this.color);
 		ctx.beginPath();
-		ctx.moveTo(x, y);
-		ctx.lineTo(x + absoluteRatio, y + height / 2);
-		ctx.lineTo(x, y + height);
+		ctx.moveTo(...coords[0]);
+		ctx.lineTo(...coords[1]);
+		ctx.lineTo(...coords[2]);
 		ctx.fill();
 	}
 
@@ -205,6 +229,33 @@ class OverlayFlag extends Flag {
 
 	public colors(): string[] {
 		return this.flags.map(f => f.colors()).reduce((a, b) => a.concat(b));
+	}
+}
+
+class ContextFlag extends Flag {
+	flag: Flag;
+	dimensionContext: (context: DimensionContext) => Partial<DimensionContext>;
+
+	constructor(flag: Flag, dimensionContext: (context: DimensionContext) => Partial<DimensionContext>) {
+		super()
+		this.flag = flag;
+		this.dimensionContext = dimensionContext;
+	}
+
+	public paint(
+		ctx: CanvasRenderingContext2D,
+		x: number = 0,
+		y: number = 0,
+		width: number = ctx.canvas.width - x,
+		height: number = ctx.canvas.height - y,
+	): void {
+		const oldContext = { x, y, width, height };
+		const context = { ...oldContext, ...this.dimensionContext(oldContext) }; 
+		this.flag.paint(ctx, context.x, context.y, context.width, context.height);
+	}
+
+	public colors(): string[] {
+		return this.flag.colors();
 	}
 }
 

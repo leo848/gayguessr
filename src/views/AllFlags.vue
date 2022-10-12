@@ -5,6 +5,7 @@
         <v-text-field
           class="mt-4"
           v-model="search"
+          @blur="search = improvedSearch"
           :error="error !== null"
           :error-messages="error || undefined"
           append-icon="mdi-magnify"
@@ -21,9 +22,9 @@
           </template>
           <span>{{ regex ? "RegExp mode (kinda buggy)" : "Text mode" }}</span>
         </v-tooltip>
-        <v-menu>
+        <v-menu v-if="filteredFlags.length > 1">
           <template v-slot:activator="{ props }">
-            <v-btn :icon="lastChosenAlgorithm?.icon ?? 'mdi-sort'" class="mt-4 ml-4" v-bind="props" />
+            <v-btn :icon="lastChosenAlgorithm?.icon ?? 'mdi-sort-variant'" class="mt-4 ml-4" v-bind="props" />
           </template>
           <v-list>
             <v-list-subheader>Sort by</v-list-subheader>
@@ -33,20 +34,33 @@
               :variant="algorithm.name === lastChosenAlgorithm.name ? 'tonal' : undefined"
               @click="flags = algorithm.exec(flags); lastChosenAlgorithm = algorithm"
               >
+              <template v-slot:prepend>
+                <v-icon>{{ algorithm.icon }}</v-icon>
+              </template>
               <v-list-item-title>{{ algorithm.name }}</v-list-item-title>
             </v-list-item>
           </v-list>
         </v-menu>
-        <v-tooltip bottom v-if="!lastChosenAlgorithm || !lastChosenAlgorithm.hideReverse">
+        <v-tooltip
+          bottom
+          v-if="filteredFlags.length > 1 && lastChosenAlgorithm && !lastChosenAlgorithm.hideReverse"
+          >
           <template v-slot:activator="{ props }">
             <v-btn :icon="'mdi-sort-alphabetical-' + (reverse ? 'descending' : 'ascending')" class="mt-4 ml-4" v-bind="props" @click="reverse = !reverse; flags = flags.reverse()" />
           </template>
-          <span>{{ reverse ? "Ascending" : "Descending" }}</span>
+          <span>{{ reverse ? "Descending" : "Ascending" }}</span>
         </v-tooltip>
       </v-col>
       <v-col cols="12">
-        <p class="text-h5" v-if="flags.filter(test).length > 0">{{ search ? `${ flags.filter(test).length } flags found` : `Showing ${ flags.filter(test).length } flags` }}
-          <span v-if="search" class="text-disabled">{{ regex ? `matching ${ search }` : `containing ${ search }` }}</span>
+        <p class="text-h5" v-if="filteredFlags.length > 0">
+          <span v-if="!search">Showing&nbsp;</span>
+          <v-scale-transition leave-absolute>
+            <b :key="filteredFlags.length"> {{ filteredFlags.length }}&nbsp;</b>
+          </v-scale-transition>
+          <span>
+            {{ (filteredFlags.length == 1 ? "flag" : "flags") + (search ? " found" : "") }}&nbsp;
+          </span>
+          <span v-if="search" class="text-disabled">{{ regex ? `matching ${ searchRegex }` : `containing ${ improvedSearch }` }}</span>
         </p>
         <p class="text-h5" v-else>
           No flags matched your search.<br/>
@@ -65,7 +79,7 @@
           </v-card>
         </IdentityInfo>
       </v-col>
-      <v-col cols="12" sm="6" lg="4" v-if="flags.filter(test).length === 0">
+      <v-col cols="12" sm="6" lg="4" v-if="filteredFlags.length === 0">
         <v-card color="error">
           <v-card-text>
             <p class="text-h3 mb-4">No flags found</p>
@@ -131,6 +145,53 @@ export default {
     ]
   }),
   computed: {
+    improvedSearch() {
+      const { search, filteredFlags: flags } = this;
+
+      if (flags.length <= 1) return search;
+
+      let [expandBack, expandForwards] = [true, true];
+
+      let improved = search;
+
+      while (expandBack || expandForwards) {
+        for (const name of flags) {
+          if (name.startsWith(improved)) expandBack = false;
+          if (name.endsWith(improved)) expandForwards = false;
+        }
+
+        if (!expandBack && !expandForwards) return improved;
+
+        let charB: string | null = null;
+        if (expandBack) {
+          for (const name of flags) {
+            const index = name.search(improved);
+            let thisChar = name.charAt(index - 1);
+            if (charB && thisChar != charB) {
+              expandBack = false;
+              break;
+            }
+            charB = thisChar;
+          }
+        }
+        if (expandBack) improved = charB + improved;
+
+        let charF: string | null = null;
+        if (expandForwards) {
+          for (const name of flags) {
+            const index = name.search(improved) + improved.length;
+            let thisChar = name.charAt(index);
+            if (charF && thisChar !== charF) {
+              expandForwards = false;
+              break;
+            }
+            charF = thisChar;
+          }
+        }
+        if (expandForwards) improved += charF;
+      }
+      return improved;
+    },
     searchRegex() {
       const search = this.search.trim();
       const { regex } = this;
@@ -150,12 +211,18 @@ export default {
     suggestion(): string | null {
       const { search, flags } = this;
       const sortedByLev = flags
-        .map((name: string) => ({ name, lev: levensthein(name.toLowerCase(), search.toLowerCase()) }))
+        .map((name: string) => ({
+          name,
+          lev: levensthein(name.toLowerCase(), search.toLowerCase()) / search.length,
+        }))
         .sort((a: { lev: number }, b: { lev: number }) => a.lev - b.lev);
 
-      if (sortedByLev[0].lev > 3) return null;
+      if (sortedByLev[0].lev > .75) return null;
       return sortedByLev[0].name;
-    }
+    },
+    filteredFlags() {
+      return this.flags.filter(this.test);
+    },
   },
   created() {
     this.flags = this.flags.sort();
