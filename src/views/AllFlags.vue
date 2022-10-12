@@ -22,6 +22,12 @@
           </template>
           <span>{{ regex ? "RegExp mode (kinda buggy)" : "Text mode" }}</span>
         </v-tooltip>
+        <v-tooltip bottom>
+          <template v-slot:activator="{ props }">
+            <v-btn icon="mdi-refresh" class="mt-4 ml-4" v-bind="props" @click="flags = flags.slice()" />
+          </template>
+          <span>Reload flags</span>
+        </v-tooltip>
         <v-menu v-if="filteredFlags.length > 1">
           <template v-slot:activator="{ props }">
             <v-btn :icon="lastChosenAlgorithm?.icon ?? 'mdi-sort-variant'" class="mt-4 ml-4" v-bind="props" />
@@ -32,7 +38,7 @@
               v-for="algorithm in sortAlgorithms"
               :key="algorithm.name"
               :variant="algorithm.name === lastChosenAlgorithm.name ? 'tonal' : undefined"
-              @click="flags = algorithm.exec(flags); lastChosenAlgorithm = algorithm"
+              @click="flags = algorithm.exec(flags); lastChosenAlgorithm = algorithm; reverse = false"
               >
               <template v-slot:prepend>
                 <v-icon>{{ algorithm.icon }}</v-icon>
