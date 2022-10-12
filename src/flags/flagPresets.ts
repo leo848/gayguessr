@@ -89,6 +89,13 @@ export const flagPresets = {
 		"#ffffff",
 		"#800080",
 	]),
+	aceflux: Flag.horizontal([
+		"#c82067",
+		"#ec6d87",
+		"#f9d1e1",
+		"#91479d",
+		"#800080",
+	]),
 	aromantic: Flag.horizontal([
 		"#00b44b",
 		"#99e07d",
