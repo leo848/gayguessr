@@ -9,19 +9,13 @@
           :error="error !== null"
           :error-messages="error || undefined"
           append-icon="mdi-magnify"
-          :label="regex ? 'Enter RegExp...' : 'Search...'"
+          label="Search..."
           clearable
           single-line
           hide-details
           />
       </v-col>
       <v-col cols="4">
-        <v-tooltip bottom>
-          <template v-slot:activator="{ props }">
-            <v-btn :icon="regex ? 'mdi-regex' : 'mdi-cursor-text'" class="mt-4" v-bind="props" @click="regex = !regex" />
-          </template>
-          <span>{{ regex ? "RegExp mode (kinda buggy)" : "Text mode" }}</span>
-        </v-tooltip>
         <v-tooltip bottom>
           <template v-slot:activator="{ props }">
             <v-btn icon="mdi-refresh" class="mt-4 ml-4" v-bind="props" @click="flags = flags.slice()" />
@@ -66,7 +60,7 @@
           <span>
             {{ (filteredFlags.length == 1 ? "flag" : "flags") + (search ? " found" : "") }}&nbsp;
           </span>
-          <span v-if="search" class="text-disabled">{{ regex ? `matching ${ searchRegex }` : `containing ${ improvedSearch }` }}</span>
+          <span v-if="search" class="text-disabled">containing {{ improvedSearch }}</span>
         </p>
         <p class="text-h5" v-else>
           No flags matched your search.<br/>
@@ -116,7 +110,6 @@ export default {
     flags: Object.keys(flagPresets),
     search: "",
     error: null as string | null,
-    regex: false,
     reverse: false,
     lastChosenAlgorithm: 0,
     sortAlgorithms: [
@@ -158,7 +151,7 @@ export default {
 
       let [expandBack, expandForwards] = [true, true];
 
-      let improved = search;
+      let improved = search.toLowerCase();
 
       while (expandBack || expandForwards) {
         for (const name of flags) {
@@ -198,22 +191,6 @@ export default {
       }
       return improved;
     },
-    searchRegex() {
-      const search = this.search.trim();
-      const { regex } = this;
-
-      if (!search) return /./g;
-      try {
-        this.error = null;
-        return regex ?
-          new RegExp(search, 'g')
-          : new RegExp(search.replace(/[-[\]{}()+?.,\\^$|#\s]/g, '\\$&').replace('*', '.+?'), 'ig');
-      } catch (e) {
-        if (!regex) throw e;
-        this.error = e.message;
-        return /./g;
-      }
-    },
     suggestion(): string | null {
       const { search, flags } = this;
       const sortedByLev = flags
@@ -244,16 +221,11 @@ export default {
   },
   methods: {
     test(text: string) {
-      if (this.regex) {
-        return this.searchRegex.test(text);
-      } else {
-        return text.toLowerCase().includes(this.search.toLowerCase());
-      }
+      return text.toLowerCase().includes(this.search.toLowerCase());
     },
     highlight(text: string, search: string) {
       if (!search) return text;
-      const re = this.searchRegex;
-      return text.replace(re, match => `<span class="text-success">${ match }</span>`);
+      return text.replace(search.toLowerCase(), match => `<span class="text-success">${ match }</span>`);
     }
   }
 }
