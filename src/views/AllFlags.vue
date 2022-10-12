@@ -43,7 +43,7 @@
         </v-menu>
         <v-tooltip
           bottom
-          v-if="filteredFlags.length > 1 && lastChosenAlgorithm && lastChosenAlgorithm.hideReverse"
+          v-if="filteredFlags.length > 1 && lastChosenAlgorithm && !lastChosenAlgorithm.hideReverse"
           >
           <template v-slot:activator="{ props }">
             <v-btn :icon="'mdi-sort-alphabetical-' + (reverse ? 'descending' : 'ascending')" class="mt-4 ml-4" v-bind="props" @click="reverse = !reverse; flags = flags.reverse()" />
