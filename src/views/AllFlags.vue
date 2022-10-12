@@ -147,7 +147,7 @@ export default {
     improvedSearch() {
       const { search, filteredFlags: flags } = this;
 
-      if (flags.length <= 1) return search;
+      if (flags.length === 0) return search;
 
       let [expandBack, expandForwards] = [true, true];
 
