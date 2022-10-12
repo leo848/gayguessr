@@ -103,6 +103,13 @@ export const flagPresets = {
 		"#a9a9a9",
 		"#000000",
 	]),
+	aroace: Flag.horizontal([
+		"#ec8b00",
+		"#edd800",
+		"#ffffff",
+		"#53abdd",
+		"#1e3356",
+	]),
 	graysexual: Flag.horizontal([
 		"#790196",
 		"#afb2af",
