@@ -14,7 +14,7 @@
     "@types/node": "^18.8.3",
     "luxon": "^3.0.4",
     "roboto-fontface": "*",
-    "vue": "^3.2.40",
+    "vue": "^3.2.41",
     "vue-router": "4",
     "vuetify": "^3.0.0-beta.13",
     "webfontloader": "^1.0.0",
