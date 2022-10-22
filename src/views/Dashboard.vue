@@ -15,7 +15,11 @@
                   get added, the flag of the day might change more than once per day.
               </InfoTooltip>
             </h2>
-            <p class="mb-4">Click for more information.</p>
+            <p>
+              <v-btn class="mb-2" to="all-flags">
+                See all flags
+              </v-btn>
+            </p>
             <FlagOfTheDay width="70%" />
           </v-card-text>
         </v-card>
