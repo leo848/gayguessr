@@ -66,11 +66,13 @@ export default {
   }),
   methods: {
     formatDate(date: Date) {
-      return date.toLocaleDateString("en-US", {
-        year: "numeric",
-        month: "long",
-        day: "numeric"
-      });
+      return new Intl.RelativeTimeFormat("en", {
+        numeric: "auto",
+        style: "long"
+      }).format(
+        Math.round((date.getTime() - Date.now()) / (1000 * 60 * 60 * 24)),
+        "day"
+      );
     },
   },
   emits: ["reload"]
