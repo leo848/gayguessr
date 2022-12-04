@@ -1,5 +1,5 @@
 <template>
-  <v-row style="min-height: 100%">
+  <v-row>
     <v-col v-if="!noNewGame" cols="12" sm="6" md="4" xl="3">
       <v-card @click="dialog = true">
         <v-card-title class="text-h4">new game</v-card-title>
