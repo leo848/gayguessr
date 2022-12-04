@@ -2,7 +2,7 @@
   <v-row style="min-height: 100%">
     <v-col v-if="!noNewGame" cols="12" sm="6" md="4" xl="3">
       <v-card @click="dialog = true">
-        <v-card-title class="text-h4">New Game</v-card-title>
+        <v-card-title class="text-h4">new game</v-card-title>
         <v-card-text>
           <v-icon size="80">mdi-plus-circle</v-icon>
         </v-card-text>
