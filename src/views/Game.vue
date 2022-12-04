@@ -7,7 +7,7 @@
           !game.playedFlags.length ?
             ":("
             : reason === "time" ?
-              "Time's up!" : "Well done!"
+              "time's up!" : "well done!"
           }}</v-card-title>
         <v-card-text>
           <v-row>
@@ -21,14 +21,14 @@
             </v-col>
             <v-col>
               <p class="text-h5">
-                Correct: {{ game.playedFlags.filter(f => f.correct).length }} out of {{ game.playedFlags.length }}
+                correct: {{ game.playedFlags.filter(f => f.correct).length }} out of {{ game.playedFlags.length }}
               </p>
             </v-col>
           </v-row>
         </v-card-text>
         <v-card-actions>
           <v-spacer />
-          <v-btn @click="close">Return to dashboard</v-btn>
+          <v-btn @click="close">return to dashboard</v-btn>
         </v-card-actions>
       </v-card>
     </v-dialog>
@@ -46,7 +46,7 @@ export default {
   components: { GameComponent },
   data: () => ({
     gameDialog: false,
-    reason: null as { reason: string } | undefined,
+    reason: null as { reason: string } | undefined | null,
     game: null as Game | null,
     gameSettings: loadGameSettings(),
   }),

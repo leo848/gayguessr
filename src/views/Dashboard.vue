@@ -8,31 +8,31 @@
         <v-card>
           <v-card-text>
             <h2 class="text-h4">
-              Flag of the day ({{ new Date().toLocaleDateString() }})
+              flag of the day ({{ new Date().toLocaleDateString() }})
               <InfoTooltip>
-                  The flag of the day is calculated based on the hash of the current day
-                  and is dependent on the amount of flags. This means that as more flags
+                  the flag of the day is calculated based on the hash of the current day
+                  and is dependent on the amount of flags. this means that as more flags
                   get added, the flag of the day might change more than once per day.
               </InfoTooltip>
             </h2>
+            <FlagOfTheDay width="70%" />
             <p>
-              <v-btn class="mb-2" to="all-flags">
-                See all flags
+              <v-btn class="mt-4" to="all-flags" size="large" color="primary">
+                see all flags
               </v-btn>
             </p>
-            <FlagOfTheDay width="70%" />
           </v-card-text>
         </v-card>
       </v-col>
       <v-col cols="12" sm="6" lg="4">
         <v-card>
           <v-card-text>
-            <h2 class="text-h4 mb-2">Stats</h2>
-            <p class="text-h5">Amount of games: {{ games.length }}</p>
+            <h2 class="text-h4 mb-2">stats</h2>
+            <p class="text-h5">amount of games: {{ games.length }}</p>
             <p class="text-h5">
-              Total time played: {{ totalTimePlayed() }}
+              total time played: {{ totalTimePlayed() }}
               <InfoTooltip>
-                  The total time played is based on the amount of time spent in each game,
+                  the total time played is based on the amount of time spent in each game,
                   i.e. the difference between the start and end time of each game.
               </InfoTooltip>
             </p>

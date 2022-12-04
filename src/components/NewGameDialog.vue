@@ -95,6 +95,7 @@ export default {
   },
   methods: {
     start() {
+      console.log(this.settings);
       changeGameSettings(this.settings);
       this.$router.push('./game');
     },

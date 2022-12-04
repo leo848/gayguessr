@@ -10,25 +10,25 @@ const routes = [
 		alias: ['/', `${base}dashboard`],
 		name: 'Dashboard',
 		component: Dashboard,
-		meta: { title: 'Dashboard' },
+		meta: { title: 'dashboard' },
 	},
 	{
 		path: `${base}game`,
 		name: 'Game',
 		component: () => import('./views/Game.vue'),
-		meta: { title: 'Game' },
+		meta: { title: 'game' },
 	},
 	{
 		path: `${base}identity/:id`,
 		name: 'Identity',
 		component: () => import('./views/Identity.vue'),
-		meta: { title: 'Identity' },
+		meta: { title: 'identity' },
 	},
 	{
 		path: `${base}all-flags`,
 		name: 'AllFlags',
 		component: () => import('./views/AllFlags.vue'),
-		meta: { title: 'All Flags' },
+		meta: { title: 'all flags' },
 	}
 ];
 
