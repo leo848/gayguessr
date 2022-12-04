@@ -70,22 +70,22 @@
         </p>
       </v-col>
       <v-col v-for="name in flags" :key="name" v-show="test(name)" cols="12" sm="6" lg="4">
-        <IdentityInfo :id="name" always-show>
+        <LabelInfo :id="name" always-show>
         <v-card>
           <v-card-title v-html="highlight(name, search)" />
             <v-card-text>
               <Flag :preset="name" />
             </v-card-text>
           </v-card>
-        </IdentityInfo>
+        </LabelInfo>
       </v-col>
       <v-col cols="12" sm="6" lg="4" v-if="filteredFlags.length === 0">
         <v-card color="error">
           <v-card-text>
             <p class="text-h3 mb-4">No flags found</p>
             <p class="text-h5">
-              You want to suggest or add a flag or identity?
-              Open an <v-btn :href="'https://github.com/leo848/gayguessr/issues/new?assignees=&labels=flag-request&template=request-a-flag---identity.md&title=Add%20'+search" target="_blank" variant="tonal" size="large">issue</v-btn>
+              You want to suggest or add a flag or label?
+              Open an <v-btn :href="'https://github.com/leo848/gayguessr/issues/new?assignees=&labels=flag-request&template=request-a-flag---label.md&title=Add%20'+search" target="_blank" variant="tonal" size="large">issue</v-btn>
               on <v-btn href="https://github.com/leo848/gayguessr/" variant="tonal">GitHub</v-btn>.
             </p>
           </v-card-text>
@@ -97,7 +97,7 @@
 
 <script lang="ts">
 import Flag from '../components/Flag.vue';
-import IdentityInfo from '../components/IdentityInfo.vue';
+import LabelInfo from '../components/LabelInfo.vue';
 import { flagPresets } from '../flags/flagPresets';
 import { seededRandom, shuffle } from '../utils/random';
 import { levensthein } from '../utils/string';
@@ -105,7 +105,7 @@ import { unique } from '../utils/array';
 
 export default {
   name: "AllFlags",
-  components: { Flag, IdentityInfo },
+  components: { Flag, LabelInfo },
   data: () => ({
     flags: Object.keys(flagPresets),
     search: "",

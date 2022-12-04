@@ -41,9 +41,9 @@
             size="x-large"
             >
             <div>
-              <IdentityInfo :id="option">
+              <LabelInfo :id="option">
               <v-icon>mdi-information</v-icon>
-              </IdentityInfo>
+              </LabelInfo>
             </div>
 
             <v-spacer />
@@ -68,7 +68,7 @@
 <script lang="ts">
 import Flag from './Flag.vue';
 import MultipleProgressBar from './MultipleProgressBar.vue';
-import IdentityInfo from './IdentityInfo.vue';
+import LabelInfo from './LabelInfo.vue';
 import FlexBtn from './FlexBtn.vue';
 
 import { flagPresets } from '../flags/flagPresets';
@@ -79,7 +79,7 @@ import { GameSettings } from '../storage/types';
 
 export default {
   name: 'Game',
-  components: { Flag, MultipleProgressBar, IdentityInfo, FlexBtn },
+  components: { Flag, MultipleProgressBar, LabelInfo, FlexBtn },
   props: {
     settings: {
       type: Object as () => GameSettings,

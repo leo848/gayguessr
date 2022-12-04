@@ -19,10 +19,10 @@ const routes = [
 		meta: { title: 'game' },
 	},
 	{
-		path: `${base}identity/:id`,
-		name: 'Identity',
-		component: () => import('./views/Identity.vue'),
-		meta: { title: 'identity' },
+		path: `${base}label/:id`,
+		name: 'Label',
+		component: () => import('./views/Label.vue'),
+		meta: { title: 'label' },
 	},
 	{
 		path: `${base}all-flags`,

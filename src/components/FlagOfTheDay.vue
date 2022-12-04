@@ -1,18 +1,18 @@
 <template>
-  <IdentityInfo :id="flag" always-show>
+  <LabelInfo :id="flag" always-show>
   <Flag :preset="flag" :width="width"/>
-  </IdentityInfo>
+  </LabelInfo>
 </template>
 
 <script lang="ts">
 import Flag from './Flag.vue';
-import IdentityInfo from './IdentityInfo.vue';
+import LabelInfo from './LabelInfo.vue';
 
 import flagOfTheDay from '../flags/flagOfTheDay';
 
 export default {
   name: 'FlagOfTheDay',
-  components: { Flag, IdentityInfo },
+  components: { Flag, LabelInfo },
   props: {
     width: {
       type: String,
