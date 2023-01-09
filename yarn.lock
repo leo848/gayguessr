@@ -387,9 +387,9 @@ lru-cache@^6.0.0:
   dependencies:
     yallist "^4.0.0"
 
-luxon@^3.0.4:
-  version "3.0.4"
-  resolved "https://registry.npmjs.org/luxon/-/luxon-3.0.4.tgz"
+luxon@^3.2.1:
+  version "3.2.1"
+  resolved "https://registry.yarnpkg.com/luxon/-/luxon-3.2.1.tgz#14f1af209188ad61212578ea7e3d518d18cee45f"
 
 magic-string@^0.25.7:
   version "0.25.9"
